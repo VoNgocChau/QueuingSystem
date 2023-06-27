@@ -1,5 +1,5 @@
 const logoRight = `
-<svg width="605" height="615" viewBox="0 0 605 615" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="505" height="515" viewBox="0 0 605 615" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M605 569.5C605 594.63 469.568 615 302.5 615C135.432 615 0 594.63 0 569.5C0 544.37 135.432 524 302.5 524C469.565 524 605 544.37 605 569.5Z" fill="#E6E7F8"/>
 <path d="M216.79 192.74H214.024V415.663H216.79V192.74Z" fill="#A9B1D4"/>
 <path d="M166 443.35V338.963L100.881 376.523V257.986H103.648L103.671 371.727L168.767 334.168V443.35H166Z" fill="#A9B1D4"/>

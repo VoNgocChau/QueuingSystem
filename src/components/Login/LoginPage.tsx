@@ -1,4 +1,4 @@
-import { Row, Col, Form, Input, Button, message, Image } from "antd";
+import { Row, Col, Form, Input, Button } from "antd";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -55,9 +55,13 @@ const LoginPage: React.FC = () => {
               />
             </Form.Item>
             <Form.Item>
-              <Link to={"/"} className="forgot-pwd">
-                {message ? "Quên mật khẩu?" : "Sai mật khẩu hoặc tên đăng nhập"}
+              {message ? (
+                <Link to={"/forgotpassword"} className="forgot-pwd">
+                  Quên mật khẩu
               </Link>
+              ) : (
+                <p className="forgot-pwd">Sai mật khẩu hoặc tên đăng nhập</p>
+              )}
             </Form.Item>
 
             <Form.Item style={{ textAlign: "center" }}>
@@ -70,6 +74,11 @@ const LoginPage: React.FC = () => {
               >
                 Đăng nhập
               </Button>
+            </Form.Item>
+            <Form.Item style={{textAlign: 'center'}}>
+              {!message && (
+                <Button style={{color: '#E73F3F'}} type="link" onClick={() => navigate("/forgotpassword")} > Quên mật khẩu </Button>
+              )}
             </Form.Item>
           </Form>
         </Col>

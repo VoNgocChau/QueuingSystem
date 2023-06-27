@@ -1,5 +1,5 @@
 const logoForgot = `
-<svg width="711" height="560" viewBox="0 0 711 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="611" height="460" viewBox="0 0 711 560" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_31_4241)">
 <path opacity="0.5" d="M416.965 256.568H277.925C267.217 256.568 258.536 247.905 258.536 237.224V98.5095C258.536 87.8283 267.217 79.166 277.925 79.166H416.965C427.673 79.166 436.354 87.8283 436.354 98.5095V237.224C436.354 247.905 427.673 256.568 416.965 256.568Z" stroke="#4598E6"/>
 <path d="M388.84 216.451H306.05V220.53H388.84V216.451Z" fill="#E6E7F8"/>
