@@ -132,7 +132,8 @@ const DashboardContent: React.FC = () => {
         </Col>
       </Row>
       <Row>
-        <MyChart/>
+        <MyChart />
+        
       </Row>
     </>
   );
