@@ -1,22 +1,13 @@
 import { Card, Avatar, Input, Row, Col, Form, Layout } from "antd";
 import SiderMenu from "../Menu/SiderMenu";
-import { Content, Header } from "antd/es/layout/layout";
-import AvatarPage from "../Avatar/Avatar";
+import { Content } from "antd/es/layout/layout";
+import HeaderPage from "../Header/HeaderPage";
 const ProfilePage: React.FC = () => {
   return (
     <Layout>
       <SiderMenu />
       <Content style={{ height: "100vh" }}>
-        <Header style={{ backgroundColor: "#f5f5f5" }} className="">
-          <Row style={{display:'flex', justifyContent: 'space-between'}}>
-            <Col>
-              <h3>Thông tin cá nhân</h3>
-            </Col>
-            <Col>
-              <AvatarPage/>
-            </Col>
-          </Row>
-        </Header>
+        {/* <HeaderPage label="Thông tin cá nhân"/> */}
         <div
           style={{
             display: "flex",

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS cho breadcrumb chung */
+.ant-breadcrumb {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* CSS cho link trong breadcrumb */
+  .ant-breadcrumb-link {
+    color: #1890ff;
+  }
+  
+  /* CSS cho phân tách giữa các mục breadcrumb */
+  .ant-breadcrumb-separator {
+    color: #666;
+  }
+  
+  /* CSS cho mục breadcrumb hiện tại */
+  .ant-breadcrumb-item:last-child {
+    color: yellow !important;
+  }

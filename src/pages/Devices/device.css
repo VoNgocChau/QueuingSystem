@@ -1,0 +1,18 @@
+.btn__add {
+    position: fixed !important;
+    right: 0 !important;
+    width: 80px !important;
+    height: 94px !important;
+    white-space: pre-wrap !important;
+    background-color: #fff2e7;
+    color: #ff7506;
+}
+
+th{
+    background-color: #ff9138 !important;
+    color: white !important;
+}
+
+.ant-select-item-option-content > .anticon svg {
+    fill: red;
+  }
