@@ -6,7 +6,7 @@ import { Button, Card, Col, Form, Row, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
-import { DeviceAdd } from "../../interface";
+import { Device } from "../../interface";
 
 const DetailDevicePage = () => {
   const breadcrumbItem = [
@@ -16,7 +16,7 @@ const DetailDevicePage = () => {
   ];
 
   const {id} = useParams<{id: string}>();
-  const [device, setDevice] = useState<DeviceAdd | null>(null);
+  const [device, setDevice] = useState<Device | null>(null);
   const devices = useAppSelector((state) => state.devices.devices);
   useEffect(() => {
     const deviceDetails = devices.find((device) => device.id === id);

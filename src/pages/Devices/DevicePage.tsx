@@ -11,7 +11,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { fetchData } from "../../redux/slice/deviceSlice";
-import { DeviceAdd } from "../../interface";
+import { Device } from "../../interface";
 
 const DevicePage: React.FC = () => {
   // Định nghĩa breadcrumb cho trang Thiết bị > Danh sách thiết bị
@@ -139,7 +139,7 @@ const DevicePage: React.FC = () => {
     {
       title: " ",
       dataIndex: "",
-      render: (_: any, record: DeviceAdd) => (
+      render: (_: any, record: Device) => (
         <span
           className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]"
           onClick={() => handleDetail(record.id)}

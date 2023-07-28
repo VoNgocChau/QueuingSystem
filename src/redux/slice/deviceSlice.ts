@@ -1,10 +1,10 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Device, DeviceAdd } from "../../interface";
+import { Device } from "../../interface";
 import { firestore } from '../../firebase/config';
 
 interface DeviceState {
-    devices: DeviceAdd[];
+    devices: Device[];
 }
 
 const initialState: DeviceState = {
@@ -13,11 +13,11 @@ const initialState: DeviceState = {
 
 export const fetchData = createAsyncThunk('device/fetch', async () => {
     const snapshot = await firestore.collection('devices').get();
-    const devices = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as DeviceAdd))
+    const devices = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Device))
     return devices;
 })
 
-export const addDevice = createAsyncThunk('device/add', async (device: DeviceAdd) => {
+export const addDevice = createAsyncThunk('device/add', async (device: Device) => {
     try {
         const collection = await firestore.collection('devices').add(device);
         device.id = collection.id;
@@ -32,10 +32,10 @@ const deviceSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: builder => {
-        builder.addCase(fetchData.fulfilled, (state, action: PayloadAction<DeviceAdd[]>) => {
+        builder.addCase(fetchData.fulfilled, (state, action: PayloadAction<Device[]>) => {
             state.devices = action.payload
         })
-            .addCase(addDevice.fulfilled, (state, action: PayloadAction<DeviceAdd>) => {
+            .addCase(addDevice.fulfilled, (state, action: PayloadAction<Device>) => {
                 state.devices.push(action.payload)
             })
     }

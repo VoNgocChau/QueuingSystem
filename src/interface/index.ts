@@ -1,15 +1,15 @@
-export interface Device {
-    id?: string;
-    deviceCode: string;
-    deviceName: string;
-    ipAddress: string;
-    activeStatus: boolean;
-    connectionStatus: boolean;
-    serviceUse: string[];
-}
+// export interface Device {
+//     id?: string;
+//     deviceCode: string;
+//     deviceName: string;
+//     ipAddress: string;
+//     activeStatus: boolean;
+//     connectionStatus: boolean;
+//     serviceUse: string[];
+// }
 
 // interface.ts
-export interface DeviceAdd {
+export interface Device {
     // Define your properties here.
     id: string | undefined;
     deviceCode: string;

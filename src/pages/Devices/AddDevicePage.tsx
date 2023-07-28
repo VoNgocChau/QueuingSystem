@@ -16,7 +16,7 @@ import {
 import "./add.css";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
-import { Device, DeviceAdd } from "../../interface";
+import { Device } from "../../interface";
 import { addDevice } from "../../redux/slice/deviceSlice";
 import { firestore } from "../../firebase/config";
 
@@ -40,8 +40,8 @@ const AddDevicePage: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
 
-  const handleSubmit = async (devices: DeviceAdd) => {
-    const newDevice:DeviceAdd = {
+  const handleSubmit = async (devices: Device) => {
+    const newDevice:Device = {
       ...devices,
     };
 
