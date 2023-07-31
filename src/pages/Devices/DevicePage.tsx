@@ -125,16 +125,18 @@ const DevicePage: React.FC = () => {
           </React.Fragment>
         ))}
         {shouldTruncate && (
-          <span
-            className="link-info"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              // Handle the "Xem thêm" click event here
-              console.log("Xem thêm clicked:", serviceUse);
-            }}
-          >
-            ... Xem thêm
-          </span>
+          <>
+            <br />
+            <span
+              className="underline underline-offset-1 cursor-pointer link-info text-[#4277FF]"
+              onClick={() => {
+                // Handle the "Xem thêm" click event here
+                console.log("Xem thêm clicked:", serviceUse);
+              }}
+            >
+              ...Xem thêm
+            </span>
+          </>
         )}
       </span>
     );
@@ -220,72 +222,70 @@ const DevicePage: React.FC = () => {
       <Content style={{ minHeight: "100vh" }}>
         <HeaderPage breadcrumbItems={breadcrumbItems} />
 
-        <div
-          style={{
-            display: "flex",
-            padding: "0 90px",
-            alignItems: "center",
-            marginTop: "90px",
-          }}
-        >
-          <Space>
-            <Form layout="vertical">
-              <Form.Item label="Trạng thái hoạt động">
-                <Select
-                  defaultValue="jack"
-                  style={{ width: 200 }}
-                  value={activeStatusFilter}
-                  onChange={handleActiveStatusChange}
-                  options={[
-                    { value: null, label: "Tất cả" },
-                    { value: "true", label: "Hoạt động" },
-                    { value: "false", label: "Ngưng hoạt động" },
-                  ]}
-                />
-              </Form.Item>
-            </Form>
-            <Form layout="vertical">
-              <Form.Item label="Trạng thái kết nối">
-                <Select
-                  defaultValue="jack"
-                  style={{ width: 200 }}
-                  value={connectionStatusFilter}
-                  onChange={handleConnectionStatusChange}
-                  options={[
-                    { value: null, label: "Tất cả" },
-                    { value: "true", label: "Kết nối" },
-                    { value: "false", label: "Mất kết nối" },
-                  ]}
-                />
-              </Form.Item>
-            </Form>
-            <Form layout="vertical" style={{ marginLeft: "75%" }}>
-              <Form.Item label="Từ khóa">
-                <Input
-                  prefix={<SearchOutlined />}
-                  placeholder="Search"
-                  value={searchKeyWord}
-                  onChange={handleKeyWordChange}
-                  style={{ marginLeft: 8, width: "267px" }}
-                />
-              </Form.Item>
-            </Form>
-          </Space>
-        </div>
-        <div className="flex justify-between">
+        <div className="px-4">
           <div>
-            <Table
-              columns={columns}
-              dataSource={filteredData}
-              bordered
-              className="px-20"
-              size="small"
-            />
+            <b className="text-[1.5rem] text-[#ff7506]">Danh sách thiết bị</b>
           </div>
-          <Button className="btn__add">
-            <PlusOutlined />
-            <p onClick={handleAddDevice}>Thêm thiết bị</p>
-          </Button>
+          <div className=" flex mt-5">
+            <Space>
+              <Form layout="vertical">
+                <Form.Item label={<b>Trạng thái hoạt động</b>}>
+                  <Select
+                    defaultValue="jack"
+                    style={{ width: 200 }}
+                    value={activeStatusFilter}
+                    onChange={handleActiveStatusChange}
+                    options={[
+                      { value: null, label: "Tất cả" },
+                      { value: "true", label: "Hoạt động" },
+                      { value: "false", label: "Ngưng hoạt động" },
+                    ]}
+                  />
+                </Form.Item>
+              </Form>
+              <Form layout="vertical">
+                <Form.Item label={<b>Trạng thái kết nối</b>}>
+                  <Select
+                    defaultValue="jack"
+                    style={{ width: 200 }}
+                    value={connectionStatusFilter}
+                    onChange={handleConnectionStatusChange}
+                    options={[
+                      { value: null, label: "Tất cả" },
+                      { value: "true", label: "Kết nối" },
+                      { value: "false", label: "Mất kết nối" },
+                    ]}
+                  />
+                </Form.Item>
+              </Form>
+              <Form layout="vertical" className="ml-[400px]">
+                <Form.Item label={<b>Từ khóa</b>}>
+                  <Input
+                    prefix={<SearchOutlined />}
+                    placeholder="Search"
+                    value={searchKeyWord}
+                    onChange={handleKeyWordChange}
+                    style={{ marginLeft: 8, width: "267px" }}
+                  />
+                </Form.Item>
+              </Form>
+            </Space>
+          </div>
+          <div className="flex justify-between ">
+            <div className="w-[91.5%]">
+              <Table
+                columns={columns}
+                dataSource={filteredData}
+                bordered
+                size="small"
+                
+              />
+            </div>
+            <Button className="btn__add">
+              <PlusOutlined />
+              <p onClick={handleAddDevice}>Thêm thiết bị</p>
+            </Button>
+          </div>
         </div>
       </Content>
     </Layout>

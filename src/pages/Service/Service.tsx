@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/slice/serviceSlice";
 import "./service.css";
 import { useNavigate } from "react-router-dom";
+import { ServiceType } from "../../interface";
 
 const Service = () => {
   const dispatch = useAppDispatch();
@@ -85,9 +86,10 @@ const Service = () => {
     {
       title: " ",
       dataIndex: "",
-      render: (_: any, record: any) => (
-        <span className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]"
-              onClick={() => navigate('/service-details')}
+      render: (_: any, record: ServiceType) => (
+        <span
+          className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]"
+          onClick={() => navigate(`/service-details/${record.id}`)}
         >
           Chi tiết
         </span>
@@ -96,8 +98,11 @@ const Service = () => {
     {
       title: " ",
       dataIndex: "",
-      render: (_: any, record: any) => (
-        <span className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]">
+      render: (_: any, record: ServiceType) => (
+        <span
+          className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]"
+          onClick={() => navigate(`/service-add/${record.id}`)}
+        >
           Cập nhật
         </span>
       ),
@@ -109,55 +114,62 @@ const Service = () => {
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItems} />
 
-        <div>Quản lý dịch vụ</div>
-
-        <div className="flex px-[90px] my-2">
-          <div className="flex flex-col">
-            <label>Trạng thái hoạt động</label>
-            <Select
-              defaultValue="jack"
-              style={{ width: 200 }}
-              value={activeStatus}
-              onChange={handleActiveStatusChange}
-              options={[
-                { value: null, label: "Tất cả" },
-                { value: true, label: "Hoạt động" },
-                { value: false, label: "Ngưng hoạt động" },
-              ]}
-            />
-          </div>
-          <div className="flex flex-col mx-4">
-            <label>Chọn thời gian</label>
-            <Space>
-              <DatePicker placeholder="Từ ngày" />
-              <DatePicker placeholder="Đến ngày" />
-            </Space>
-          </div>
-          <div className="flex flex-col ml-auto">
-            <label>Từ khóa</label>
-            <Input
-              prefix={<SearchOutlined />}
-              placeholder="Nhập từ khóa"
-              value={searchKeyword}
-              onChange={handleKeywordChange}
-              style={{ marginLeft: 8, width: "267px" }}
-            />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
+        <div className="flex flex-col px-4">
           <div>
-            <Table
-              columns={columns}
-              dataSource={filteredData}
-              bordered
-              className="table__service"
-              size="middle"
-            />
+            <b className="text-[1.5rem] text-[#ff7506]">Quản lý dịch vụ</b>
           </div>
-          <Button className="btn__add" onClick={() => navigate("/service-add")}>
-            <PlusOutlined />
-            <p>Thêm dịch vụ</p>
-          </Button>
+
+          <div className="flex  my-2">
+            <div className="flex flex-col">
+              <b>Trạng thái hoạt động</b>
+              <Select
+                defaultValue="jack"
+                style={{ width: 200 }}
+                value={activeStatus}
+                onChange={handleActiveStatusChange}
+                options={[
+                  { value: null, label: "Tất cả" },
+                  { value: true, label: "Hoạt động" },
+                  { value: false, label: "Ngưng hoạt động" },
+                ]}
+              />
+            </div>
+            <div className="flex flex-col mx-4">
+              <b>Chọn thời gian</b>
+              <Space>
+                <DatePicker placeholder="Từ ngày" />
+                <DatePicker placeholder="Đến ngày" />
+              </Space>
+            </div>
+            <div className="flex flex-col ml-[24.3%]">
+              <b>Từ khóa</b>
+              <Input
+                prefix={<SearchOutlined />}
+                placeholder="Nhập từ khóa"
+                value={searchKeyword}
+                onChange={handleKeywordChange}
+                style={{ marginLeft: 8, width: "267px" }}
+              />
+            </div>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div>
+              <Table
+                columns={columns}
+                dataSource={filteredData}
+                bordered
+                className="table__service"
+                size="middle"
+              />
+            </div>
+            <Button
+              className="btn__add"
+              onClick={() => navigate("/service-add")}
+            >
+              <PlusOutlined />
+              <p>Thêm dịch vụ</p>
+            </Button>
+          </div>
         </div>
       </Content>
     </Layout>

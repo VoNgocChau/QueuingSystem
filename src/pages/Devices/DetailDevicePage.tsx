@@ -1,5 +1,5 @@
 import Layout, { Content } from "antd/es/layout/layout";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { Button, Card, Col, Form, Row, Space } from "antd";
@@ -15,7 +15,7 @@ const DetailDevicePage = () => {
     { label: "Chi tiết thiết bị" },
   ];
 
-  const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const [device, setDevice] = useState<Device | null>(null);
   const devices = useAppSelector((state) => state.devices.devices);
   useEffect(() => {
@@ -25,10 +25,14 @@ const DetailDevicePage = () => {
 
   const formatServiceUse = (serviceUse: string[] | string | undefined) => {
     if (Array.isArray(serviceUse)) {
-      return serviceUse.map((service, index) => <span key={index}>{service.trim() + ', '}</span>);
+      return serviceUse.map((service, index) => (
+        <span key={index}>{service.trim() + ", "}</span>
+      ));
     } else if (typeof serviceUse === "string") {
       const services = serviceUse.split(",").map((service) => service.trim());
-      return services.map((service, index) => <span key={index}>{service}</span>);
+      return services.map((service, index) => (
+        <span key={index}>{service}</span>
+      ));
     }
     return null;
   };
@@ -37,39 +41,56 @@ const DetailDevicePage = () => {
       <SiderMenu />
       <Content className="min-h-screen">
         <HeaderPage breadcrumbItems={breadcrumbItem} />
-        <div style={{ display: "flex" }}>
-          <div>
-            <Card style={{ width: "950px", margin: "0 20px" }}>
-              <p>Thông tin thiết bị</p>
+        <div className="flex">
+          <div className="w-[90%] mx-5">
+            <div className="my-3">
+              <b className="text-[1.5rem] text-[#ff7e16]">Quản lý thiết bị</b>
+            </div>
+            <Card>
+              <div className="mb-3">
+                <b className="text-[1rem] text-[#ff7e16]">Thông tin thiết bị</b>
+              </div>
               <Row gutter={24}>
                 <Col span={12}>
                   <Form layout="horizontal">
-                    <Form.Item label="Mã thiết bị">{device?.deviceCode}</Form.Item>
-                    <Form.Item label="Tên thiết bị">{device?.deviceName}</Form.Item>
-                    <Form.Item label="Địa chỉ IP">{device?.ipAddress}</Form.Item>
+                    <Form.Item label={<b>Mã thiết bị</b>}>
+                      {device?.deviceCode}
+                    </Form.Item>
+                    <Form.Item label={<b>Tên thiết bị</b>}>
+                      {device?.deviceName}
+                    </Form.Item>
+                    <Form.Item label={<b>Địa chỉ IP</b>}>
+                      {device?.ipAddress}
+                    </Form.Item>
                   </Form>
                 </Col>
                 <Col span={12}>
                   <Form layout="horizontal">
-                    <Form.Item label="Loại thiết bị">{device?.deviceType}</Form.Item>
-                    <Form.Item label="Tên đăng nhập">{device?.userName}</Form.Item>
-                    <Form.Item label="Mật khẩu">{device?.password}</Form.Item>
+                    <Form.Item label={<b>Loại thiết bị</b>}>
+                      {device?.deviceType}
+                    </Form.Item>
+                    <Form.Item label={<b>Tên đăng nhập</b>}>
+                      {device?.userName}
+                    </Form.Item>
+                    <Form.Item label={<b>Mật khẩu</b>}>{device?.password}</Form.Item>
                   </Form>
                 </Col>
               </Row>
               <Row>
                 <Form layout="vertical">
-                  <Form.Item label="Dịch vụ sử dụng:">
+                  <Form.Item label={<b>Dịch vụ sử dụng:</b>}>
                     {formatServiceUse(device?.serviceUse)}
                   </Form.Item>
                 </Form>
               </Row>
             </Card>
           </div>
-          <Button className="btn__add">
-            <PlusOutlined />
-            <span>Cập nhật thiết bị</span>
-          </Button>
+          <div className="mt-[60.5px]">
+            <Button className="btn__add">
+              <PlusOutlined />
+              <span>Cập nhật thiết bị</span>
+            </Button>
+          </div>
         </div>
       </Content>
     </Layout>

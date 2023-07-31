@@ -27,7 +27,8 @@ const Router = () => {
           <Route path={'/details/:id'} Component={DetailDevicePage}/>
           <Route path={'/services'} Component={Service}/>
           <Route path={'/service-add'} Component={AddService}/>
-          <Route path={'/service-details'} Component={DetailService}/>
+          <Route path={'/service-add/:id'} Component={AddService}/>
+          <Route path={'/service-details/:id'} Component={DetailService}/>
         </Routes>
       </div>
   )

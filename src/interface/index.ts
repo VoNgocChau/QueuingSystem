@@ -23,7 +23,7 @@ export interface Device {
     connectionStatus?: boolean;
 }
 
-export interface Service {
+export interface ServiceType {
     id: string;
     serviceCode: string;
     serviceName: string;

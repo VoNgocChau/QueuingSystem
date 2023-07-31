@@ -1,29 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
+
+body {
+  font-family: "Nunito", sans-serif;
+}
 
 /* CSS cho breadcrumb chung */
 .ant-breadcrumb {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* CSS cho link trong breadcrumb */
-  .ant-breadcrumb-link {
-    color: #1890ff;
-  }
-  
-  /* CSS cho phân tách giữa các mục breadcrumb */
-  .ant-breadcrumb-separator {
-    color: #666;
-  }
-  
-  /* CSS cho mục breadcrumb hiện tại */
-  .ant-breadcrumb-item:last-child {
-    color: yellow !important;
-  }
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
 
-  .content__global {
-    min-height: 100vh;
-  }
+/* CSS cho link trong breadcrumb */
+.ant-breadcrumb-link {
+  color: #ff7506;
+}
+
+/* CSS cho phân tách giữa các mục breadcrumb */
+.ant-breadcrumb-separator {
+  color: #666;
+}
+
+.content__global {
+  min-height: 100vh;
+}
+
+:where(.css-dev-only-do-not-override-1wazalj).ant-layout-header {
+  height: 64px;
+  padding-inline: 20px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 64px;
+  background: #001529;
+}
+
+.ant-select-arrow {
+  color: #ff7506 !important; /* Thay đổi thành màu sắc mong muốn */
+}
+
+.ant-picker-icon {
+  color: #ff7506 !important; /* Thay đổi thành màu sắc mong muốn */
+}
+
+.ant-input-affix-wrapper .anticon {
+  color: #ff7506; /* Thay đổi thành màu sắc mong muốn */
+}
+
+.select__add .ant-select-selection-item {
+  background-color: #ffac6a !important;
+  color: white !important
+}

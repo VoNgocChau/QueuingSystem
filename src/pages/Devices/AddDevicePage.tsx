@@ -73,99 +73,107 @@ const AddDevicePage: React.FC<Props> = () => {
       <SiderMenu />
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItems} />
-        <Card style={{ margin: "0 20px" }}>
-          <Form layout="vertical" onFinish={handleSubmit} form={form}>
-            <Row justify={"space-around"}>
-              <Col>
-                <Form.Item
-                  label="Mã thiết bị: *"
-                  name="deviceCode"
-                  initialValue={selectedDevice?.deviceCode}
-                >
-                  <Input
-                    style={{ width: "400px" }}
-                    placeholder="Nhập mã thiết bị"
-                  />
-                </Form.Item>
+        <div className="mx-5">
+          <div className="my-3">
+            <b className="text-[1.5rem] text-[#ff7e16]">Quản lý thiết bị</b>
+          </div>
+          <Card>
+            <div>
+              <div className="mb-3">
+                <b className="text-[1rem] text-[#ff7e16]">Thông tin thiết bị</b>
+              </div>
+              <Form layout="vertical" onFinish={handleSubmit} form={form}>
+                <Row justify={"space-between"}>
+                  <Col>
+                    <Form.Item
+                      label="Mã thiết bị: *"
+                      name="deviceCode"
+                      initialValue={selectedDevice?.deviceCode}
+                    >
+                      <Input placeholder="Nhập mã thiết bị" />
+                    </Form.Item>
 
-                <Form.Item
-                  label="Tên thiết bị: *"
-                  name="deviceName"
-                  initialValue={selectedDevice?.deviceName}
-                >
-                  <Input
-                    style={{ width: "400px" }}
-                    placeholder="Nhập tên thiết bị"
-                  />
-                </Form.Item>
+                    <Form.Item
+                      label="Tên thiết bị: *"
+                      name="deviceName"
+                      initialValue={selectedDevice?.deviceName}
+                    >
+                      <Input
+                        style={{ width: "500px" }}
+                        placeholder="Nhập tên thiết bị"
+                      />
+                    </Form.Item>
 
-                <Form.Item
-                  label="Địa chỉ IP: *"
-                  name="ipAddress"
-                  initialValue={selectedDevice?.ipAddress}
-                >
-                  <Input
-                    style={{ width: "400px" }}
-                    placeholder="Nhập địa chỉ IP"
-                  />
-                </Form.Item>
-              </Col>
-              <Col>
-                <Form.Item
-                  label="Loại thiết bị: *"
-                  name="deviceType"
-                  initialValue={selectedDevice?.deviceType}
-                >
-                  <Select
-                    style={{ width: "400px" }}
-                    placeholder="Chọn loại thiết bị"
+                    <Form.Item
+                      label="Địa chỉ IP: *"
+                      name="ipAddress"
+                      initialValue={selectedDevice?.ipAddress}
+                    >
+                      <Input
+                        style={{ width: "500px" }}
+                        placeholder="Nhập địa chỉ IP"
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col>
+                    <Form.Item
+                      label="Loại thiết bị: *"
+                      name="deviceType"
+                      initialValue={selectedDevice?.deviceType}
+                    >
+                      <Select
+                        style={{ width: "500px" }}
+                        placeholder="Chọn loại thiết bị"
+                      >
+                        <Select.Option value="kyout">Kyoot</Select.Option>
+                      </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Tên đăng nhập: *"
+                      name="userName"
+                      initialValue={selectedDevice?.userName}
+                    >
+                      <Input
+                        style={{ width: "500px" }}
+                        placeholder="Nhập tên đăng nhập"
+                      />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Mật khẩu: *"
+                      name="password"
+                      initialValue={selectedDevice?.password}
+                    >
+                      <Input
+                        style={{ width: "500px" }}
+                        placeholder="Nhập mật khẩu"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row justify={"space-around"}>
+                  <Form.Item
+                    label="Dịch vụ sử dụng: *"
+                    name="serviceUse"
+                    initialValue={selectedDevice?.serviceUse}
                   >
-                    <Select.Option value="kyout">Kyoot</Select.Option>
-                  </Select>
-                </Form.Item>
-
-                <Form.Item
-                  label="Tên đăng nhập: *"
-                  name="userName"
-                  initialValue={selectedDevice?.userName}
-                >
-                  <Input
-                    style={{ width: "400px" }}
-                    placeholder="Nhập tên đăng nhập"
-                  />
-                </Form.Item>
-
-                <Form.Item
-                  label="Mật khẩu: *"
-                  name="password"
-                  initialValue={selectedDevice?.password}
-                >
-                  <Input
-                    style={{ width: "400px" }}
-                    placeholder="Nhập mật khẩu"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row justify={"space-around"}>
-              <Form.Item
-                label="Dịch vụ sử dụng: *"
-                name="serviceUse"
-                initialValue={selectedDevice?.serviceUse}
-              >
-                <Select
-                  mode="multiple"
-                  allowClear
-                  style={{ width: "970px" }}
-                  placeholder="Nhập dịch vụ sử dụng"
-                  defaultValue={["Khám tim mạch", "Khám sản phụ khoa"]}
-                  options={options}
-                ></Select>
-              </Form.Item>
-            </Row>
-            <span className="ml-[7%]">* là trường thông tin bắt buộc</span>
-          </Form>
-        </Card>
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      style={{ width: "1140px" }}
+                      placeholder="Nhập dịch vụ sử dụng"
+                      defaultValue={["Khám tim mạch", "Khám sản phụ khoa"]}
+                      options={options}
+                      className="select__add"
+                    ></Select>
+                  </Form.Item>
+                </Row>
+                <span>* là trường thông tin bắt buộc</span>
+              </Form>
+            </div>
+          </Card>
+        </div>
         <Row justify={"center"} style={{ marginTop: "15px" }}>
           <Space>
             <Button className="btn__cancel">Hủy bỏ</Button>
