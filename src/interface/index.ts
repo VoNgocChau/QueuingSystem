@@ -11,7 +11,7 @@
 // interface.ts
 export interface Device {
     // Define your properties here.
-    id: string | undefined;
+    id: string ;
     deviceCode: string;
     deviceName: string;
     ipAddress: string;
@@ -19,4 +19,14 @@ export interface Device {
     userName: string;
     password: string;
     serviceUse: string[];
+    activeStatus?: boolean;
+    connectionStatus?: boolean;
+}
+
+export interface Service {
+    id: string;
+    serviceCode: string;
+    serviceName: string;
+    description: string;
+    activeStatus: string;
 }

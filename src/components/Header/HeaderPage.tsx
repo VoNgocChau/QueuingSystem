@@ -16,7 +16,7 @@ interface Props {
 const HeaderPage = (props: Props) => {
   return (
     <Header style={{ backgroundColor: "#f5f5f5" }} className="">
-      <Row style={{ display: "flex", justifyContent: "space-between" }}>
+      <Row className="flex items-center justify-between">
         <Col>
         <Breadcrumb>
             {props.breadcrumbItems.map((item, index) => (

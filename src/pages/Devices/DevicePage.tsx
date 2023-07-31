@@ -24,6 +24,59 @@ const DevicePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const data = useSelector((state: RootState) => state.devices.devices);
 
+  const [activeStatusFilter, setActiveStatusFilter] = useState<string | null>(
+    null
+  );
+  const [connectionStatusFilter, setConnectionStatusFilter] = useState<
+    string | null
+  >(null);
+  const [searchKeyWord, setSearchKeyWord] = useState<string>("");
+
+  const handleActiveStatusChange = (value: string) => {
+    setActiveStatusFilter(value);
+  };
+
+  const handleConnectionStatusChange = (value: string) => {
+    setConnectionStatusFilter(value);
+  };
+
+  const handleKeyWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyWord(e.target.value);
+  };
+
+  const filteredData = data.filter((device) => {
+    // Convert the filter strings to booleans if not null
+    const isActiveFilter =
+      activeStatusFilter === "true"
+        ? true
+        : activeStatusFilter === "false"
+        ? false
+        : null;
+    const isConnectionFilter =
+      connectionStatusFilter === "true"
+        ? true
+        : connectionStatusFilter === "false"
+        ? false
+        : null;
+
+    // Check if the device matches the active status filter
+    const isActiveMatch =
+      isActiveFilter === null || device.activeStatus === isActiveFilter;
+
+    // Check if the device matches the connection status filter
+    const isConnectionMatch =
+      isConnectionFilter === null ||
+      device.connectionStatus === isConnectionFilter;
+
+    // Check if the device name contains the keyword
+    const isKeywordMatch =
+      searchKeyWord === "" ||
+      device.deviceName.toLowerCase().includes(searchKeyWord.toLowerCase());
+
+    // Return true if the device matches all filter criteria
+    return isActiveMatch && isConnectionMatch && isKeywordMatch;
+  });
+
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
@@ -37,10 +90,10 @@ const DevicePage: React.FC = () => {
     console.log(`Xem chi tiết thiết bị có khóa là ${id}`);
   };
 
-  const handleUpdate = (key: string) => {
+  const handleUpdate = (id: string) => {
     // Xử lý sự kiện khi nhấp vào nút "Cập nhật" của thiết bị có khóa là key
-    navigate(`/device_add/${key}`);
-    console.log(`Cập nhật thiết bị có khóa là ${key}`);
+    navigate(`/device_add/${id}`);
+    console.log(`Cập nhật thiết bị có khóa là ${id}`);
   };
 
   const renderServiceUse = (serviceUse: string[] | string) => {
@@ -151,10 +204,10 @@ const DevicePage: React.FC = () => {
     {
       title: " ",
       dataIndex: "",
-      render: (_: any, record: any) => (
+      render: (_: any, record: Device) => (
         <span
           className="underline underline-offset-1 p-5 cursor-pointer link-info text-[#4277FF]"
-          onClick={() => handleUpdate(record.key)}
+          onClick={() => handleUpdate(record.id)}
         >
           Cập nhật
         </span>
@@ -181,10 +234,12 @@ const DevicePage: React.FC = () => {
                 <Select
                   defaultValue="jack"
                   style={{ width: 200 }}
+                  value={activeStatusFilter}
+                  onChange={handleActiveStatusChange}
                   options={[
-                    { value: "jack", label: "Tất cả" },
-                    { value: "lucy", label: "Hoạt động" },
-                    { value: "Yiminghe", label: "Ngưng hoạt động" },
+                    { value: null, label: "Tất cả" },
+                    { value: "true", label: "Hoạt động" },
+                    { value: "false", label: "Ngưng hoạt động" },
                   ]}
                 />
               </Form.Item>
@@ -194,10 +249,12 @@ const DevicePage: React.FC = () => {
                 <Select
                   defaultValue="jack"
                   style={{ width: 200 }}
+                  value={connectionStatusFilter}
+                  onChange={handleConnectionStatusChange}
                   options={[
-                    { value: "jack", label: "Tất cả" },
-                    { value: "lucy", label: "Kết nối" },
-                    { value: "Yiminghe", label: "Mất kết nối" },
+                    { value: null, label: "Tất cả" },
+                    { value: "true", label: "Kết nối" },
+                    { value: "false", label: "Mất kết nối" },
                   ]}
                 />
               </Form.Item>
@@ -207,6 +264,8 @@ const DevicePage: React.FC = () => {
                 <Input
                   prefix={<SearchOutlined />}
                   placeholder="Search"
+                  value={searchKeyWord}
+                  onChange={handleKeyWordChange}
                   style={{ marginLeft: 8, width: "267px" }}
                 />
               </Form.Item>
@@ -217,7 +276,7 @@ const DevicePage: React.FC = () => {
           <div>
             <Table
               columns={columns}
-              dataSource={data}
+              dataSource={filteredData}
               bordered
               className="px-20"
               size="small"

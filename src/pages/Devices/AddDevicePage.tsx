@@ -14,11 +14,10 @@ import {
   Space,
 } from "antd";
 import "./add.css";
-import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Device } from "../../interface";
-import { addDevice } from "../../redux/slice/deviceSlice";
-import { firestore } from "../../firebase/config";
+import { addDevice, updateDevice } from "../../redux/slice/deviceSlice";
 
 interface Props {}
 const options: SelectProps["options"] = [];
@@ -30,8 +29,11 @@ for (let i = 10; i < 36; i++) {
 }
 
 const AddDevicePage: React.FC<Props> = () => {
-  const { key } = useParams<{ key: string }>();
-  const isUpdate = !!key;
+  const { id } = useParams<{ id: string }>();
+  const isUpdate = !!id;
+  const selectedDevice = useAppSelector((state) =>
+    state.devices.devices.find((device) => device.id === id)
+  );
   const breadcrumbItems = [
     { label: "Thiết bị", link: "/devices" },
     { label: "Danh sách thiết bị", link: "/devices" },
@@ -39,19 +41,27 @@ const AddDevicePage: React.FC<Props> = () => {
   ];
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const selectedDeviceId: string | undefined = selectedDevice?.id!;
 
   const handleSubmit = async (devices: Device) => {
-    const newDevice:Device = {
+    const newDevice: Device = {
       ...devices,
     };
 
     try {
-      await dispatch(addDevice(newDevice));
-      console.log(newDevice);
+      if (isUpdate && selectedDeviceId) {
+        // Ensure that the selected device's ID is set in the newDevice object
+        newDevice.id = selectedDeviceId;
+        await dispatch(updateDevice(newDevice));
+      } else {
+        await dispatch(addDevice(newDevice));
+      }
     } catch (err) {
       console.log(err);
     }
     form.resetFields();
+    navigate("/devices");
   };
 
   const handleClick = () => {
@@ -61,27 +71,39 @@ const AddDevicePage: React.FC<Props> = () => {
   return (
     <Layout>
       <SiderMenu />
-      <Content style={{ minHeight: "100vh" }}>
+      <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItems} />
         <Card style={{ margin: "0 20px" }}>
           <Form layout="vertical" onFinish={handleSubmit} form={form}>
             <Row justify={"space-around"}>
               <Col>
-                <Form.Item label="Mã thiết bị: *" name="deviceCode">
+                <Form.Item
+                  label="Mã thiết bị: *"
+                  name="deviceCode"
+                  initialValue={selectedDevice?.deviceCode}
+                >
                   <Input
                     style={{ width: "400px" }}
                     placeholder="Nhập mã thiết bị"
                   />
                 </Form.Item>
 
-                <Form.Item label="Tên thiết bị: *" name="deviceName">
+                <Form.Item
+                  label="Tên thiết bị: *"
+                  name="deviceName"
+                  initialValue={selectedDevice?.deviceName}
+                >
                   <Input
                     style={{ width: "400px" }}
                     placeholder="Nhập tên thiết bị"
                   />
                 </Form.Item>
 
-                <Form.Item label="Địa chỉ IP: *" name="ipAddress">
+                <Form.Item
+                  label="Địa chỉ IP: *"
+                  name="ipAddress"
+                  initialValue={selectedDevice?.ipAddress}
+                >
                   <Input
                     style={{ width: "400px" }}
                     placeholder="Nhập địa chỉ IP"
@@ -89,23 +111,35 @@ const AddDevicePage: React.FC<Props> = () => {
                 </Form.Item>
               </Col>
               <Col>
-                <Form.Item label="Loại thiết bị: *" name="deviceType">
+                <Form.Item
+                  label="Loại thiết bị: *"
+                  name="deviceType"
+                  initialValue={selectedDevice?.deviceType}
+                >
                   <Select
                     style={{ width: "400px" }}
                     placeholder="Chọn loại thiết bị"
                   >
-                    <Select.Option value ="kyout">Kyoot</Select.Option>
+                    <Select.Option value="kyout">Kyoot</Select.Option>
                   </Select>
                 </Form.Item>
 
-                <Form.Item label="Tên đăng nhập: *" name="userName">
+                <Form.Item
+                  label="Tên đăng nhập: *"
+                  name="userName"
+                  initialValue={selectedDevice?.userName}
+                >
                   <Input
                     style={{ width: "400px" }}
                     placeholder="Nhập tên đăng nhập"
                   />
                 </Form.Item>
 
-                <Form.Item label="Mật khẩu: *" name="password">
+                <Form.Item
+                  label="Mật khẩu: *"
+                  name="password"
+                  initialValue={selectedDevice?.password}
+                >
                   <Input
                     style={{ width: "400px" }}
                     placeholder="Nhập mật khẩu"
@@ -114,18 +148,22 @@ const AddDevicePage: React.FC<Props> = () => {
               </Col>
             </Row>
             <Row justify={"space-around"}>
-              <Form.Item label="Dịch vụ sử dụng: *" name="serviceUse">
+              <Form.Item
+                label="Dịch vụ sử dụng: *"
+                name="serviceUse"
+                initialValue={selectedDevice?.serviceUse}
+              >
                 <Select
                   mode="multiple"
                   allowClear
-                  style={{ width: "900px" }}
+                  style={{ width: "970px" }}
                   placeholder="Nhập dịch vụ sử dụng"
                   defaultValue={["Khám tim mạch", "Khám sản phụ khoa"]}
                   options={options}
                 ></Select>
               </Form.Item>
             </Row>
-            <span className="ml-[47px]">* là trường thông tin bắt buộc</span>
+            <span className="ml-[7%]">* là trường thông tin bắt buộc</span>
           </Form>
         </Card>
         <Row justify={"center"} style={{ marginTop: "15px" }}>

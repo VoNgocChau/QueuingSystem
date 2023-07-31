@@ -23,3 +23,7 @@
   .ant-breadcrumb-item:last-child {
     color: yellow !important;
   }
+
+  .content__global {
+    min-height: 100vh;
+  }

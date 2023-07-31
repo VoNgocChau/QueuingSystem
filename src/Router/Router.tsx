@@ -9,6 +9,8 @@ import DevicePage from '../pages/Devices/DevicePage'
 import AddDevicePage from '../pages/Devices/AddDevicePage'
 import DetailDevicePage from '../pages/Devices/DetailDevicePage'
 import Service from '../pages/Service/Service'
+import AddService from '../pages/Service/AddService'
+import DetailService from '../pages/Service/DetailService'
 
 const Router = () => {
   return (
@@ -20,9 +22,12 @@ const Router = () => {
           <Route path={'/confirmPwd'} Component={ComfirmNewPassword}/>
           <Route path={'/profile'} Component={ProfilePage}/>
           <Route path={'/devices'} Component={DevicePage}/>
-          <Route path={'/device_add/:key?'} element={<AddDevicePage />}/>
+          <Route path={'/device_add/:id'} element={<AddDevicePage />}/>
+          <Route path={'/device_add'} element={<AddDevicePage />}/>
           <Route path={'/details/:id'} Component={DetailDevicePage}/>
           <Route path={'/services'} Component={Service}/>
+          <Route path={'/service-add'} Component={AddService}/>
+          <Route path={'/service-details'} Component={DetailService}/>
         </Routes>
       </div>
   )
