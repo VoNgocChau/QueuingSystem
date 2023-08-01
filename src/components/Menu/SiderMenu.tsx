@@ -49,7 +49,7 @@ const items: MenuItem[] = [
   getItem("Cài đặt hệ thống", "6", <SettingOutlined />, "/settings", [
     getItem("Quản lý vai trò", "6.1", <SettingOutlined />, "/roles"),
     getItem("Quản lý tài khoản", "6.2", <SettingOutlined />, "/accounts"),
-    getItem("Quản lý người dùng", "6.3", <SettingOutlined />, "/users"),
+    getItem("Nhật ký người dùng", "6.3", <SettingOutlined />, "/users"),
   ]),
 ];
 

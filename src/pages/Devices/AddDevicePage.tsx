@@ -1,5 +1,5 @@
 import Layout, { Content } from "antd/es/layout/layout";
-import React from "react";
+import React, { useEffect } from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
 import HeaderPage from "../../components/Header/HeaderPage";
 import {
@@ -18,22 +18,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Device } from "../../interface";
 import { addDevice, updateDevice } from "../../redux/slice/deviceSlice";
+import { fetchData } from "../../redux/slice/serviceSlice";
+import { Option } from "antd/es/mentions";
 
-interface Props {}
-const options: SelectProps["options"] = [];
-for (let i = 10; i < 36; i++) {
-  options.push({
-    label: i.toString(36) + i,
-    value: i.toString(36) + i,
-  });
-}
-
-const AddDevicePage: React.FC<Props> = () => {
+const AddDevicePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const isUpdate = !!id;
   const selectedDevice = useAppSelector((state) =>
     state.devices.devices.find((device) => device.id === id)
   );
+  const serviceData = useAppSelector((state) => state.services.services);
   const breadcrumbItems = [
     { label: "Thiết bị", link: "/devices" },
     { label: "Danh sách thiết bị", link: "/devices" },
@@ -43,6 +37,10 @@ const AddDevicePage: React.FC<Props> = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const selectedDeviceId: string | undefined = selectedDevice?.id!;
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
   const handleSubmit = async (devices: Device) => {
     const newDevice: Device = {
@@ -163,10 +161,14 @@ const AddDevicePage: React.FC<Props> = () => {
                       allowClear
                       style={{ width: "1140px" }}
                       placeholder="Nhập dịch vụ sử dụng"
-                      defaultValue={["Khám tim mạch", "Khám sản phụ khoa"]}
-                      options={options}
                       className="select__add"
-                    ></Select>
+                    >
+                      {serviceData.map((item) => (
+                        <Option key={item.id} value={item.serviceName}>
+                          {item.serviceName}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Row>
                 <span>* là trường thông tin bắt buộc</span>

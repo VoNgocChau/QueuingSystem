@@ -1,12 +1,4 @@
-// export interface Device {
-//     id?: string;
-//     deviceCode: string;
-//     deviceName: string;
-//     ipAddress: string;
-//     activeStatus: boolean;
-//     connectionStatus: boolean;
-//     serviceUse: string[];
-// }
+
 
 // interface.ts
 export interface Device {
@@ -29,4 +21,15 @@ export interface ServiceType {
     serviceName: string;
     description: string;
     activeStatus: string;
+}
+
+export interface NumberType {
+    id: string;
+    stt: number;
+    customerName: string;
+    serviceName: string;
+    fromDate: string;
+    toDate: string;
+    status: string;
+    supply: string;
 }

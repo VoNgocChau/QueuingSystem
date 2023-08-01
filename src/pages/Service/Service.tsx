@@ -144,7 +144,7 @@ const Service = () => {
             <div className="flex flex-col ml-[24.3%]">
               <b>Từ khóa</b>
               <Input
-                prefix={<SearchOutlined />}
+                suffix={<SearchOutlined />}
                 placeholder="Nhập từ khóa"
                 value={searchKeyword}
                 onChange={handleKeywordChange}

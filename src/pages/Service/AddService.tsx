@@ -150,7 +150,7 @@ const AddService = () => {
         </div>
         <div className="flex justify-center mt-[30px]">
           <Space>
-            <Button className="btn__cancel">Hủy bỏ</Button>
+            <Button className="btn__cancel" onClick={() => navigate(-1)}>Hủy bỏ</Button>
             <Button className="btn__addd" onClick={handleClick}>
               {isUpdate ? "Cập nhật" : "Thêm mới"}
             </Button>

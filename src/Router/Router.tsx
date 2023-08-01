@@ -11,6 +11,10 @@ import DetailDevicePage from '../pages/Devices/DetailDevicePage'
 import Service from '../pages/Service/Service'
 import AddService from '../pages/Service/AddService'
 import DetailService from '../pages/Service/DetailService'
+import LevelNumber from '../pages/LevelNumber/LevelNumber'
+import NewLevelNumber from '../pages/LevelNumber/NewLevelNumber'
+import DetailLevelNumber from '../pages/LevelNumber/DetailLevelNumber'
+import Report from '../pages/Report/Report'
 
 const Router = () => {
   return (
@@ -29,6 +33,10 @@ const Router = () => {
           <Route path={'/service-add'} Component={AddService}/>
           <Route path={'/service-add/:id'} Component={AddService}/>
           <Route path={'/service-details/:id'} Component={DetailService}/>
+          <Route path='/numbers' Component={LevelNumber}/>
+          <Route path='/number-new' Component={NewLevelNumber}/>
+          <Route path='/number-details/:id' Component={DetailLevelNumber}/>
+          <Route path='/reports' Component={Report}/>
         </Routes>
       </div>
   )

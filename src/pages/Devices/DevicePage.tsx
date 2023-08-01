@@ -261,7 +261,7 @@ const DevicePage: React.FC = () => {
               <Form layout="vertical" className="ml-[400px]">
                 <Form.Item label={<b>Từ khóa</b>}>
                   <Input
-                    prefix={<SearchOutlined />}
+                    suffix={<SearchOutlined />}
                     placeholder="Search"
                     value={searchKeyWord}
                     onChange={handleKeyWordChange}
@@ -278,7 +278,7 @@ const DevicePage: React.FC = () => {
                 dataSource={filteredData}
                 bordered
                 size="small"
-                
+                pagination={{pageSize: 5}}
               />
             </div>
             <Button className="btn__add">
