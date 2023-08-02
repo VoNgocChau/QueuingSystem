@@ -1,17 +1,6 @@
 import React from "react";
 
-import {
-  Button,
-  Layout,
-  Menu,
-  Row,
-  Col,
-  Avatar,
-  Typography,
-  Card,
-  Progress,
-  Calendar,
-} from "antd";
+import { Layout, Typography, Card, Progress } from "antd";
 import "./dashboard.css";
 import DashboardContent from "./pages/DashboardContent";
 import SiderMenu from "../Menu/SiderMenu";
@@ -20,17 +9,15 @@ import AvatarPage from "../Avatar/Avatar";
 const { Sider, Content } = Layout;
 const { Text } = Typography;
 
-
-
 const DashboardPage: React.FC = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <SiderMenu/>
+      <SiderMenu />
       <Content>
         <DashboardContent />
       </Content>
       <Sider theme="light" width={240}>
-        <AvatarPage/>
+        <AvatarPage />
         <div style={{ padding: "10px 20px" }}>
           <Text className="txt__overview">Tổng quan</Text>
         </div>
@@ -64,10 +51,6 @@ const DashboardPage: React.FC = () => {
             />
           </Card>
         </div>
-
-        {/* <div>
-          <Calendar fullscreen={false} headerRender={() => 'hello'} />
-        </div> */}
       </Sider>
     </Layout>
   );

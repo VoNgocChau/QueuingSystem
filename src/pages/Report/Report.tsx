@@ -5,6 +5,7 @@ import { Content } from 'antd/es/layout/layout'
 import HeaderPage from '../../components/Header/HeaderPage'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { fetchDataNumber } from '../../redux/slice/numberSlice'
+import { exportToExcel } from '../../Export/exportExcel'
 
 const Report = () => {
     const dispatch = useAppDispatch();
@@ -89,7 +90,7 @@ const Report = () => {
                     <Table columns={columns} dataSource={data} bordered size='small'/>
                 </div>
                 <div>
-                    <Button className='btn__add'>Tải về</Button>
+                    <Button className='btn__add' onClick={() => exportToExcel(data, 'Báo cáo')}>Tải về</Button>
                 </div>
                 </div>
             </div>

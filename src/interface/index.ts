@@ -3,7 +3,7 @@
 // interface.ts
 export interface Device {
     // Define your properties here.
-    id: string ;
+    id: string;
     deviceCode: string;
     deviceName: string;
     ipAddress: string;
@@ -32,4 +32,27 @@ export interface NumberType {
     toDate: string;
     status: string;
     supply: string;
+}
+
+export interface RoleType {
+    id: string;
+    roleName: string;
+    userNumber: number;
+    description: string;
+}
+
+export interface AccountType {  
+    id: string;
+    userName: string; 
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    role: string;
+    status: boolean;
+    password: string;
+}
+
+export interface AuthContextType {
+    isLoggedIn: boolean;
+    setIsLoggedIn: (value: boolean) => void
 }

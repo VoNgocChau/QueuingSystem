@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import deviceSlice from './slice/deviceSlice'
 import serviceSlice from './slice/serviceSlice'
 import numberSlice from './slice/numberSlice'
+import roleSlice from './slice/roleSlice'
+import accountSlice from './slice/accountSlice'
 
 export const store = configureStore({
     reducer: {
         devices: deviceSlice,
         services: serviceSlice,
-        numbers: numberSlice
+        numbers: numberSlice,
+        roles: roleSlice,
+        accounts: accountSlice
     }
 })
 

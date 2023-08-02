@@ -6,12 +6,14 @@ import logoAlta from "./assets/logo";
 import logoRight from "./assets/logo-right";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth/AuthContext";
 
 const LoginPage: React.FC = () => {
   const [message, setMessage] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = () => {
     auth
@@ -19,6 +21,8 @@ const LoginPage: React.FC = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Logged in:", user);
+
+        setIsLoggedIn(true);
         navigate("/");
       })
       .catch((error) => {
@@ -58,7 +62,7 @@ const LoginPage: React.FC = () => {
               {message ? (
                 <Link to={"/forgotpassword"} className="forgot-pwd">
                   Quên mật khẩu
-              </Link>
+                </Link>
               ) : (
                 <p className="forgot-pwd">Sai mật khẩu hoặc tên đăng nhập</p>
               )}
@@ -75,9 +79,16 @@ const LoginPage: React.FC = () => {
                 Đăng nhập
               </Button>
             </Form.Item>
-            <Form.Item style={{textAlign: 'center'}}>
+            <Form.Item style={{ textAlign: "center" }}>
               {!message && (
-                <Button style={{color: '#E73F3F'}} type="link" onClick={() => navigate("/forgotpassword")} > Quên mật khẩu </Button>
+                <Button
+                  style={{ color: "#E73F3F" }}
+                  type="link"
+                  onClick={() => navigate("/forgotpassword")}
+                >
+                  {" "}
+                  Quên mật khẩu{" "}
+                </Button>
               )}
             </Form.Item>
           </Form>

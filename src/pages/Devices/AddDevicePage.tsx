@@ -10,7 +10,6 @@ import {
   Input,
   Row,
   Select,
-  SelectProps,
   Space,
 } from "antd";
 import "./add.css";

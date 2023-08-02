@@ -13,6 +13,7 @@ import {
 import logoMenu from "../Dashboard/assets/logoMenu";
 import SubMenu from "antd/es/menu/SubMenu";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth/AuthContext";
 
 const { Sider } = Layout;
 
@@ -55,6 +56,11 @@ const items: MenuItem[] = [
 
 const SiderMenu = () => {
   const navigate = useNavigate();
+  const {setIsLoggedIn} = useAuth();
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate('/login');
+  }
   return (
     <Sider theme="light" className="sidebar">
       <div style={{ width: 200 }}>
@@ -92,7 +98,7 @@ const SiderMenu = () => {
       <Button
         className="btn-logout"
         icon={<LoginOutlined style={{ color: "#ff7506" }} />}
-        onClick={() => navigate("/login")}
+        onClick={handleLogout}
       >
         <span className="btn-text__logout">Đăng xuất</span>
       </Button>
