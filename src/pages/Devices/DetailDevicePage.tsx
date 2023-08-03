@@ -2,7 +2,7 @@ import Layout, { Content } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
 import HeaderPage from "../../components/Header/HeaderPage";
-import { Button, Card, Col, Form, Row, Space } from "antd";
+import { Button, Card, Col, Form, Row } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";

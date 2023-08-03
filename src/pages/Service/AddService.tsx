@@ -8,6 +8,7 @@ import {
   Layout,
   Row,
   Space,
+  message,
 } from "antd";
 import React from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
@@ -31,21 +32,27 @@ const AddService = () => {
     state.services.services.find((service) => service.id === id)
   );
   const serviceId: string | undefined = selectedService?.id!;
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: isUpdate
+        ? "Cập nhật dịch vụ thành công !"
+        : "Thêm dịch vụ thành công !",
+    });
+  };
 
-  const handleSubmit = (service: ServiceType) => {
+  const handleSubmit = async(service: ServiceType) => {
     const newService = {
       ...service,
     };
     try {
       if (isUpdate) {
         newService.id = serviceId;
-        dispatch(updateService(newService));
+       await dispatch(updateService(newService));
       } else {
-        dispatch(addService(newService));
+       await dispatch(addService(newService));
       }
-
-      form.resetFields();
-      console.log(newService);
       navigate("/services");
     } catch (err) {
       console.log(err);
@@ -53,6 +60,7 @@ const AddService = () => {
   };
 
   const handleClick = () => {
+    success();
     form.submit();
   };
   const breadcrumbItem = [
@@ -64,6 +72,7 @@ const AddService = () => {
     <Layout>
       <SiderMenu />
       <Content className="content__global">
+        {contextHolder}
         <HeaderPage breadcrumbItems={breadcrumbItem} />
         <div className="mx-5">
           <div className="my-2">
@@ -150,7 +159,9 @@ const AddService = () => {
         </div>
         <div className="flex justify-center mt-[30px]">
           <Space>
-            <Button className="btn__cancel" onClick={() => navigate(-1)}>Hủy bỏ</Button>
+            <Button className="btn__cancel" onClick={() => navigate(-1)}>
+              Hủy bỏ
+            </Button>
             <Button className="btn__addd" onClick={handleClick}>
               {isUpdate ? "Cập nhật" : "Thêm mới"}
             </Button>

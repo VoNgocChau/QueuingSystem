@@ -11,6 +11,7 @@ import {
   Row,
   Select,
   Space,
+  message,
 } from "antd";
 import "./add.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,6 +20,7 @@ import { Device } from "../../interface";
 import { addDevice, updateDevice } from "../../redux/slice/deviceSlice";
 import { fetchData } from "../../redux/slice/serviceSlice";
 import { Option } from "antd/es/mentions";
+import { useForm } from "antd/es/form/Form";
 
 const AddDevicePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,9 +35,16 @@ const AddDevicePage: React.FC = () => {
     { label: isUpdate ? "Cập nhật thiết bị" : "Thêm thiết bị" },
   ];
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm();
+  const [form] = useForm();
   const navigate = useNavigate();
   const selectedDeviceId: string | undefined = selectedDevice?.id!;
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: isUpdate ? "Cập nhật thiết bị thành công !" : "Thêm tài khoản thành công !",
+    });
+  };
 
   useEffect(() => {
     dispatch(fetchData());
@@ -62,6 +71,7 @@ const AddDevicePage: React.FC = () => {
   };
 
   const handleClick = () => {
+    success();
     form.submit();
   };
 
@@ -69,6 +79,7 @@ const AddDevicePage: React.FC = () => {
     <Layout>
       <SiderMenu />
       <Content className="content__global">
+        {contextHolder}
         <HeaderPage breadcrumbItems={breadcrumbItems} />
         <div className="mx-5">
           <div className="my-3">

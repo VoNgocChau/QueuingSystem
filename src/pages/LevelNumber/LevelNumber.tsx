@@ -66,7 +66,9 @@ const LevelNumber = () => {
       number.customerName.toLowerCase().includes(searchKeyword.toLowerCase());
 
     // Return true if the current 'number' object matches the combined filter criteria.
-    return isServiceMatch && isStatusMatch && isSupplyMatch && isKeywordMatch;
+    return (
+      isServiceMatch && isStatusMatch && isSupplyMatch && isKeywordMatch 
+    );
   });
 
   const breadcrumbItem = [
@@ -77,6 +79,7 @@ const LevelNumber = () => {
     {
       title: "STT",
       dataIndex: "stt",
+      sorter: (a: any, b: any) => a.stt - b.stt,
     },
     {
       title: "Tên khách hàng",

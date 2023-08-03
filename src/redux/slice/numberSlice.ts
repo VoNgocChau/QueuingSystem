@@ -17,6 +17,12 @@ export const fetchDataNumber = createAsyncThunk('number/fetch', async () => {
     return number;
 })
 
+export const addNumber = createAsyncThunk('number/add', async (number: NumberType) => {
+    const collection = await firestore.collection('numbers').add(number);
+    number.id = collection.id;
+    return number;
+})
+
 const numberSlice = createSlice({
     name: 'numbers',
     initialState,
@@ -25,6 +31,9 @@ const numberSlice = createSlice({
         builder.addCase(fetchDataNumber.fulfilled, (state, action: PayloadAction<NumberType[]>) => {
             state.numbers = action.payload
         })
+            .addCase(addNumber.fulfilled, (state, action: PayloadAction<NumberType>) => {
+                state.numbers.push(action.payload)
+            })
     }
 })
 

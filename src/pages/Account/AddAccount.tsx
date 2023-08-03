@@ -8,6 +8,7 @@ import {
   Row,
   Select,
   Space,
+  message,
 } from "antd";
 import React, { useEffect } from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
@@ -16,6 +17,10 @@ import HeaderPage from "../../components/Header/HeaderPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchDataRole } from "../../redux/slice/roleSlice";
 import { Option } from "antd/es/mentions";
+import { AccountType } from "../../interface";
+import { addAccount } from "../../redux/slice/accountSlice";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "antd/es/form/Form";
 
 const AddAccount = () => {
   const items = [
@@ -23,15 +28,47 @@ const AddAccount = () => {
     { label: "Quản lý tài khoản", link: "/accounts" },
     { label: "Thêm tài khoản" },
   ];
-  const dispatch = useAppDispatch()
-  const dataRole = useAppSelector((state) => state.roles.roles)
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [form] = useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Thêm tài khoản thành công !",
+    });
+  };
+  const dataRole = useAppSelector((state) => state.roles.roles);
   useEffect(() => {
-    dispatch(fetchDataRole())
+    dispatch(fetchDataRole());
   }, [dispatch]);
+
+  const handleSubmit = async (account: AccountType) => {
+    const newAccount = {
+      ...account,
+    };
+
+    console.log(newAccount.role);
+
+    try {
+      await dispatch(addAccount(newAccount));
+
+      navigate("/accounts");
+      console.log(newAccount);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClick = () => {
+    success();
+    form.submit();
+  };
   return (
     <Layout>
       <SiderMenu />
       <Content className="content__global">
+        {contextHolder}
         <HeaderPage breadcrumbItems={items} />
         <div className="mx-5">
           <div className="my-3">
@@ -39,11 +76,11 @@ const AddAccount = () => {
           </div>
           <div>
             <Card className="h-[450px]">
-              <Form>
+              <Form form={form} onFinish={handleSubmit} layout="vertical">
                 <div className="mb-5">
-                <b className="text-[1rem] text-[#FF7506]">
-                  Thông tin tài khoản
-                </b>
+                  <b className="text-[1rem] text-[#FF7506]">
+                    Thông tin tài khoản
+                  </b>
                 </div>
                 <Row gutter={30}>
                   <Col span={12}>
@@ -62,18 +99,17 @@ const AddAccount = () => {
                     <Form.Item name="email">
                       <div>
                         <b>Email</b>
-                        <Input />
+                        <Input type="email" required />
                       </div>
                     </Form.Item>
-                    <Form.Item name="role">
-                      <div>
-                        <b>Vai trò</b>
-                        <Select defaultValue="Chọn vai trò">
-                            {dataRole.map((role) => (
-                                <Option key={role.id} value={role.roleName}></Option>
-                            ))}
-                        </Select>
-                      </div>
+                    <Form.Item name="role" label={<b>Vai trò</b>}>
+                      <Select>
+                        {dataRole.map((role) => (
+                          <Option key={role.id} value={role.roleName}>
+                            {role.roleName}
+                          </Option>
+                        ))}
+                      </Select>
                     </Form.Item>
                     <div>
                       <span>* Là trường thông tin bắt buộc</span>
@@ -92,17 +128,16 @@ const AddAccount = () => {
                         <Input.Password />
                       </div>
                     </Form.Item>
-                    <Form.Item name="">
+                    <Form.Item>
                       <div>
                         <b>Nhập lại mật khẩu</b>
                         <Input.Password />
                       </div>
                     </Form.Item>
-                    <Form.Item name="status">
-                      <div>
-                        <b>Tình trạng</b>
-                        <Select />
-                      </div>
+                    <Form.Item name="status" label={<b>Tình trạng</b>}>
+                      <Select>
+                        <Option value="true">Đang hoạt động</Option>
+                      </Select>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -112,7 +147,12 @@ const AddAccount = () => {
           <div className="flex justify-center mt-[5%]">
             <Space>
               <Button className="btn__cancel w-[8rem] h-[3rem]">Hủy bỏ</Button>
-              <Button className="btn__addd w-[8rem] h-[3rem]">Thêm</Button>
+              <Button
+                className="btn__addd w-[8rem] h-[3rem]"
+                onClick={handleClick}
+              >
+                Thêm
+              </Button>
             </Space>
           </div>
         </div>

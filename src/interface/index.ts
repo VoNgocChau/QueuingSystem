@@ -28,17 +28,22 @@ export interface NumberType {
     stt: number;
     customerName: string;
     serviceName: string;
-    fromDate: string;
-    toDate: string;
+    fromDate: string ;
+    toDate: string ;
     status: string;
     supply: string;
 }
 
 export interface RoleType {
-    id: string;
+    id?: string;
     roleName: string;
-    userNumber: number;
+    userNumber?: number;
     description: string;
+    functionGroupA: boolean;
+    functionGroupB: boolean;
+    functionX: boolean;
+    functionY: boolean;
+    functionZ: boolean;
 }
 
 export interface AccountType {  

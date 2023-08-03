@@ -1,34 +1,43 @@
 import { Row, Col, Form, Input, Button } from "antd";
 import "./login.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logoAlta from "./assets/logo";
 import logoRight from "./assets/logo-right";
 import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth/AuthContext";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  fetchDataAccount,
+  setUserAccount,
+} from "../../redux/slice/accountSlice";
 
 const LoginPage: React.FC = () => {
   const [message, setMessage] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [passwordLogin, setPasswordLogin] = useState<string>("");
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
 
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Logged in:", user);
+  const dataAccount = useAppSelector((state) => state.accounts.accounts);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchDataAccount());
+  }, [dispatch]);
 
-        setIsLoggedIn(true);
-        navigate("/");
-      })
-      .catch((error) => {
-        setMessage(false);
-        console.error("Login error:", error);
-      });
+  const handleLogin = () => {
+    const foundAccount = dataAccount.find(
+      (account) =>
+        account.userName === email && account.password === passwordLogin
+    );
+    if (foundAccount) {
+      dispatch(setUserAccount(foundAccount));
+      setIsLoggedIn(true);
+      navigate("/");
+    } else {
+      setMessage(false);
+    }
   };
 
   return (
@@ -54,8 +63,8 @@ const LoginPage: React.FC = () => {
             <Form.Item label="Mật khẩu *" name="password">
               <Input.Password
                 style={{ width: "400px", height: "44px" }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={passwordLogin}
+                onChange={(e) => setPasswordLogin(e.target.value)}
               />
             </Form.Item>
             <Form.Item>

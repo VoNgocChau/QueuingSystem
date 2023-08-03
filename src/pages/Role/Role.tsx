@@ -7,6 +7,8 @@ import { SearchOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchDataRole } from "../../redux/slice/roleSlice";
 import { useNavigate } from "react-router-dom";
+import { RoleType } from "../../interface";
+import { fetchDataAccount } from "../../redux/slice/accountSlice";
 
 const Role = () => {
   const items = [
@@ -20,7 +22,11 @@ const Role = () => {
     },
     {
       title: "Số người dùng",
-      dataIndex: "userNumber",
+      dataIndex: "",
+      render: (record: RoleType) => {
+        const numberOfUsers = accountData.filter((account) => account.role === record.roleName).length
+        return <span>{numberOfUsers}</span>
+      }
     },
     {
       title: "Mô tả",
@@ -28,8 +34,9 @@ const Role = () => {
     },
     {
       title: " ",
-      render: (record: any) => (
-        <span className="underline underline-offset-1 text-[#4277FF] cursor-pointer">
+      render: (record: RoleType) => (
+        <span className="underline underline-offset-1 text-[#4277FF] cursor-pointer" 
+        onClick={() => navigate(`/role-add/${record.id}`)}>
           Cập nhật
         </span>
       ),
@@ -42,8 +49,12 @@ const Role = () => {
   };
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.roles.roles);
+  const accountData = useAppSelector((state) => state.accounts.accounts)
+  
+  
   useEffect(() => {
     dispatch(fetchDataRole());
+    dispatch(fetchDataAccount())
   }, [dispatch]);
 
   const filterData = data.filter((role) => {
