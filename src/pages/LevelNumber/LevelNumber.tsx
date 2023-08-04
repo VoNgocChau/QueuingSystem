@@ -224,6 +224,7 @@ const LevelNumber = () => {
                 dataSource={filteredData}
                 bordered
                 size="small"
+                pagination={{pageSize: 5}}
               />
             </div>
             <div className="">

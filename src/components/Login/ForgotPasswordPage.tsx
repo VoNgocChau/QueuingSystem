@@ -3,7 +3,6 @@ import logoAlta from './assets/logo'
 import './login.css'
 
 import {Row, Col, Input, Form, Button, Space} from 'antd'
-import { Link } from 'react-router-dom'
 import logoForgot from './assets/forgot-pwd'
 
 const ForgotPasswordPage = () => {

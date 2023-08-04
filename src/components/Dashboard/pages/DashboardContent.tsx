@@ -1,19 +1,21 @@
 import React from "react";
-import { Row, Col, Card, Typography, Space, Avatar, Tag } from "antd";
+import { Row, Col, Card, Typography, Space, Tag } from "antd";
 
-import {
-  UserOutlined,
-  BugOutlined,
-  CalendarOutlined,
-  ArrowUpOutlined,
-} from "@ant-design/icons";
+import { CalendarOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import "./dbcontent.css";
-import MyChart from "./ChartContent";
-const { Meta } = Card;
+import { useAppSelector } from "../../../redux/hooks";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const DashboardContent: React.FC = () => {
+  const data = useAppSelector((state) => state.numbers.numbers);
+
+  const stt = data.map((item) => item.id).length;
+  const sttWait = data.filter((item) => item.status === "Đang chờ").length;
+  const sttUsage = data.filter((item) => item.status === "Đã sử dụng").length;
+  const sttSkip = data.filter((item) => item.status === "Bỏ qua").length;
+  console.log(sttUsage);
+
   return (
     <>
       <Space direction="vertical">
@@ -28,8 +30,9 @@ const DashboardContent: React.FC = () => {
           </Title>
         </Row>
       </Space>
-      <Row gutter={24} style={{ padding: "20px 20px" }}>
-        <Col span={6}>
+
+      <div className="flex mx-5">
+        <Space>
           <Card className="content-card__container">
             <div className="content-card__title">
               <div className="content-card__icon">
@@ -44,32 +47,7 @@ const DashboardContent: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              <div className="card-percent__number">4.221</div>
-              <Tag
-                icon={<BugOutlined />}
-                style={{ borderRadius: "8px", marginLeft: 20 }}
-              >
-                <span>80%</span>
-              </Tag>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card className="content-card__container">
-            <div className="content-card__title">
-              <div className="content-card__icon">
-                <CalendarOutlined className="card-icon" />
-              </div>
-              <div className="content-card__text">Số thứ tự đã cấp</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div className="card-percent__number">4.221</div>
+              <div className="card-percent__number">{stt}</div>
               <Tag
                 icon={<ArrowUpOutlined className="" />}
                 style={{ borderRadius: "8px", marginLeft: 20 }}
@@ -79,14 +57,12 @@ const DashboardContent: React.FC = () => {
               </Tag>
             </div>
           </Card>
-        </Col>
-        <Col span={6}>
           <Card className="content-card__container">
             <div className="content-card__title">
               <div className="content-card__icon">
                 <CalendarOutlined className="card-icon" />
               </div>
-              <div className="content-card__text">Số thứ tự đã cấp</div>
+              <div className="content-card__text">Số thứ tự đã sử dụng</div>
             </div>
             <div
               style={{
@@ -95,23 +71,22 @@ const DashboardContent: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              <div className="card-percent__number">4.221</div>
+              <div className="card-percent__number">{sttUsage}</div>
               <Tag
-                icon={<BugOutlined />}
+                icon={<ArrowUpOutlined className="" />}
                 style={{ borderRadius: "8px", marginLeft: 20 }}
+                className="tag"
               >
                 <span>80%</span>
               </Tag>
             </div>
           </Card>
-        </Col>
-        <Col span={6}>
           <Card className="content-card__container">
             <div className="content-card__title">
               <div className="content-card__icon">
                 <CalendarOutlined className="card-icon" />
               </div>
-              <div className="content-card__text">Số thứ tự đã cấp</div>
+              <div className="content-card__text">Số thứ tự đang chờ</div>
             </div>
             <div
               style={{
@@ -120,21 +95,36 @@ const DashboardContent: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              <div className="card-percent__number">4.221</div>
+              <div className="card-percent__number">{sttWait}</div>
               <Tag
-                icon={<BugOutlined />}
+                icon={<ArrowUpOutlined className="" />}
                 style={{ borderRadius: "8px", marginLeft: 20 }}
+                className="tag"
               >
                 <span>80%</span>
               </Tag>
             </div>
           </Card>
-        </Col>
-      </Row>
-      <Row>
-        <MyChart />
-        
-      </Row>
+          <Card className="content-card__container">
+            <div className="content-card__title">
+              <div className="content-card__icon">
+                <CalendarOutlined className="card-icon" />
+              </div>
+              <div className="content-card__text">Số thứ tự đã bỏ qua</div>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="card-percent__number">{sttSkip}</div>
+              <Tag
+                icon={<ArrowUpOutlined className="" />}
+                style={{ borderRadius: "8px", marginLeft: 20 }}
+                className="tag"
+              >
+                <span>80%</span>
+              </Tag>
+            </div>
+          </Card>
+        </Space>
+      </div>
     </>
   );
 };

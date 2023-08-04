@@ -16,7 +16,7 @@ const DashboardPage: React.FC = () => {
       <Content>
         <DashboardContent />
       </Content>
-      <Sider theme="light" width={240}>
+      <Sider theme="light" width={415}>
         <AvatarPage />
         <div style={{ padding: "10px 20px" }}>
           <Text className="txt__overview">Tổng quan</Text>

@@ -75,7 +75,7 @@ const AddAccount = () => {
             <b className="text-[1.5rem] text-[#FF7506]">Quản lý tài khoản</b>
           </div>
           <div>
-            <Card className="h-[450px]">
+            <Card className="h-[430px]">
               <Form form={form} onFinish={handleSubmit} layout="vertical">
                 <div className="mb-5">
                   <b className="text-[1rem] text-[#FF7506]">
@@ -144,7 +144,7 @@ const AddAccount = () => {
               </Form>
             </Card>
           </div>
-          <div className="flex justify-center mt-[5%]">
+          <div className="flex justify-center mt-5">
             <Space>
               <Button className="btn__cancel w-[8rem] h-[3rem]">Hủy bỏ</Button>
               <Button

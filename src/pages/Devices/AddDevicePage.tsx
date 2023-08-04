@@ -16,11 +16,13 @@ import {
 import "./add.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { Device } from "../../interface";
+import { Device, LogEntry } from "../../interface";
 import { addDevice, updateDevice } from "../../redux/slice/deviceSlice";
 import { fetchData } from "../../redux/slice/serviceSlice";
 import { Option } from "antd/es/mentions";
 import { useForm } from "antd/es/form/Form";
+import { addLog, saveLogToFirestore } from "../../redux/slice/accountSlice";
+import moment from "moment";
 
 const AddDevicePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,6 +31,7 @@ const AddDevicePage: React.FC = () => {
     state.devices.devices.find((device) => device.id === id)
   );
   const serviceData = useAppSelector((state) => state.services.services);
+  const userAccount = useAppSelector((state) => state.accounts.userAccount);
   const breadcrumbItems = [
     { label: "Thiết bị", link: "/devices" },
     { label: "Danh sách thiết bị", link: "/devices" },
@@ -63,6 +66,18 @@ const AddDevicePage: React.FC = () => {
       } else {
         await dispatch(addDevice(newDevice));
       }
+
+      const activity = isUpdate ? `Cập nhật thiết bị ${devices.deviceName}` : `Thêm mới thiết bị ${devices.deviceName}`
+      const timestamp = moment().format("DD/MM/YYYY HH:mm:ss")
+      const userName = userAccount?.userName ?? "Unknow"
+      const logEntry : LogEntry = {
+        timestamp,
+        activity,
+        userName: userName,
+        ipUsage: devices.ipAddress
+      }
+      dispatch(addLog(logEntry));
+      dispatch(saveLogToFirestore(logEntry))
     } catch (err) {
       console.log(err);
     }

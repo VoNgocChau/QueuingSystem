@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import LoginPage from "../components/Login/LoginPage";
 import DashboardPage from "../components/Dashboard/DashboardPage";
 import ForgotPasswordPage from "../components/Login/ForgotPasswordPage";
@@ -15,8 +15,7 @@ import LevelNumber from "../pages/LevelNumber/LevelNumber";
 import NewLevelNumber from "../pages/LevelNumber/NewLevelNumber";
 import DetailLevelNumber from "../pages/LevelNumber/DetailLevelNumber";
 import Report from "../pages/Report/Report";
-import { useAuth } from "../context/auth/AuthContext";
-import NotFound from "../pages/404/NotFound";
+// import { useAuth } from "../context/auth/AuthContext";
 import Role from "../pages/Role/Role";
 import AddRole from "../pages/Role/AddRole";
 import Account from "../pages/Account/Account";
@@ -24,7 +23,7 @@ import AddAccount from "../pages/Account/AddAccount";
 import UserLog from "../pages/User/UserLog";
 
 const Router = () => {
-  const { isLoggedIn } = useAuth();
+  // const { isLoggedIn } = useAuth();
 
   return (
     <div className="router-container">

@@ -31,7 +31,7 @@ const DetailDevicePage = () => {
     } else if (typeof serviceUse === "string") {
       const services = serviceUse.split(",").map((service) => service.trim());
       return services.map((service, index) => (
-        <span key={index}>{service}</span>
+        <span key={index}>{service.trim() }</span>
       ));
     }
     return null;
@@ -72,7 +72,9 @@ const DetailDevicePage = () => {
                     <Form.Item label={<b>Tên đăng nhập</b>}>
                       {device?.userName}
                     </Form.Item>
-                    <Form.Item label={<b>Mật khẩu</b>}>{device?.password}</Form.Item>
+                    <Form.Item label={<b>Mật khẩu</b>}>
+                      {device?.password}
+                    </Form.Item>
                   </Form>
                 </Col>
               </Row>

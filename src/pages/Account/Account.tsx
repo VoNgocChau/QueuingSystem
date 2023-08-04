@@ -32,7 +32,7 @@ const Account = () => {
   }
 
   const filterData = data.filter((account) => {
-    const isRoleMatch = roleFilter === null || account.role === roleFilter;
+    const isRoleMatch = roleFilter === null || roleFilter === "null" || account.role === roleFilter;
     const isKeywordMatch = searchKeyword === "" || account.fullName.toLowerCase().includes(searchKeyword.toLowerCase())
     return isRoleMatch && isKeywordMatch;
   })

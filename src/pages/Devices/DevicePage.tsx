@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Badge, Button, Form, Input, Layout, Select, Space, Table } from "antd";
-import { ColumnsType } from "antd/es/table";
 import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";

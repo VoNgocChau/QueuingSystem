@@ -32,6 +32,8 @@ export interface NumberType {
     toDate: string ;
     status: string;
     supply: string;
+    phoneNumber?: string;
+    email?: string;
 }
 
 export interface RoleType {
@@ -55,6 +57,14 @@ export interface AccountType {
     role: string;
     status: boolean;
     password: string;
+}
+
+export interface LogEntry {
+    id?: string;
+    activity: string;
+    timestamp: string;
+    userName: string;
+    ipUsage: string;
 }
 
 export interface AuthContextType {

@@ -2,7 +2,6 @@ import { Breadcrumb, Col, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
 import AvatarPage from "../Avatar/Avatar";
-import path from "path";
 import { Link } from "react-router-dom";
 
 interface BreadcrumbItem {

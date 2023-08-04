@@ -1,11 +1,18 @@
 import { DatePicker, Input, Layout, Space, Table } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { SearchOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchDataLog } from "../../redux/slice/LogSlice";
 
 const UserLog = () => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.logs.logs)
+  useEffect(() => {
+    dispatch(fetchDataLog())
+  }, [dispatch]);
   const items = [
     { label: "Cài đặt hệ thống", link: "users" },
     { label: "Nhật ký sử dụng" },
@@ -14,19 +21,19 @@ const UserLog = () => {
   const columns = [
     {
         title: 'Tên đăng nhập',
-        dataIndex: ''
+        dataIndex: 'userName'
     },
     {
         title: 'Thời gian tác động',
-        dataIndex: ''
+        dataIndex: 'timestamp'
     },
     {
         title: 'IP thực hiện',
-        dataIndex: ''
+        dataIndex: 'ipUsage'
     },
     {
         title: 'Thao tác thực hiện',
-        dataIndex: ''
+        dataIndex: 'activity'
     },
   ]
   return (
@@ -49,7 +56,7 @@ const UserLog = () => {
             </div>
           </div>
           <div>
-            <Table columns={columns} bordered size="small"/>
+            <Table columns={columns} dataSource={data} bordered size="small"/>
           </div>
         </div>
       </Content>

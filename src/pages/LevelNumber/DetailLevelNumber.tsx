@@ -12,6 +12,7 @@ const DetailLevelNumber = () => {
   const navigate = useNavigate();
   const [numberDetails, setNumberDetails] = useState<NumberType | null>(null);
   const data = useAppSelector((state) => state.numbers.numbers);
+  const dataAccount = useAppSelector((state) => state.accounts.userAccount);
   useEffect(() => {
     const details = data.find((number) => number.id === id);
     setNumberDetails(details || null);
@@ -68,11 +69,11 @@ const DetailLevelNumber = () => {
                   </div>
                   <div>
                     <b>Số điện thoại: </b>
-                    <span className="ml-10">{numberDetails?.supply}</span>
+                    <span className="ml-10">{numberDetails?.phoneNumber}</span>
                   </div>
                   <div>
                     <b>Địa chỉ Email: </b>
-                    <span className="ml-10">{numberDetails?.supply}</span>
+                    <span className="ml-10">{numberDetails?.email}</span>
                   </div>
                 </Col>
               </Row>

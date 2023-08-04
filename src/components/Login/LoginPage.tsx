@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import logoAlta from "./assets/logo";
 import logoRight from "./assets/logo-right";
-import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

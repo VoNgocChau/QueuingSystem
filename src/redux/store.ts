@@ -4,6 +4,7 @@ import serviceSlice from './slice/serviceSlice'
 import numberSlice from './slice/numberSlice'
 import roleSlice from './slice/roleSlice'
 import accountSlice from './slice/accountSlice'
+import LogSlice from './slice/LogSlice'
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         services: serviceSlice,
         numbers: numberSlice,
         roles: roleSlice,
-        accounts: accountSlice
+        accounts: accountSlice,
+        logs: LogSlice
     }
 })
 
