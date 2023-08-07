@@ -1,6 +1,5 @@
-import { Button, Input, Layout, Table } from "antd";
+import { Button, Input,  Table } from "antd";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { SearchOutlined } from "@ant-design/icons";
@@ -62,11 +61,10 @@ const Role = () => {
     return isKeyword;
   })
   return (
-    <Layout>
-      <SiderMenu />
+   
       <Content className="content__global">
         <HeaderPage breadcrumbItems={items} />
-        <div className="mx-5">
+        <div className="mx-5 w-[80vw]">
           <div className="flex justify-between my-5">
             <div>
               <b className="text-[1.5rem] text-[#FF7506]">Danh sách vai trò</b>
@@ -94,7 +92,6 @@ const Role = () => {
           </div>
         </div>
       </Content>
-    </Layout>
   );
 };
 

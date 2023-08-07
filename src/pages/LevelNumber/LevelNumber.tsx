@@ -3,13 +3,11 @@ import {
   Button,
   DatePicker,
   Input,
-  Layout,
   Select,
   Space,
   Table,
 } from "antd";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { SearchOutlined } from "@ant-design/icons";
@@ -18,11 +16,12 @@ import { fetchData as fetchService } from "../../redux/slice/serviceSlice";
 import { Option } from "antd/es/mentions";
 import { fetchData as fetchDevice } from "./../../redux/slice/deviceSlice";
 import { fetchDataNumber } from "../../redux/slice/numberSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { NumberType } from "../../interface";
 
 const LevelNumber = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const serviceData = useAppSelector((state) => state.services.services);
   const deviceData = useAppSelector((state) => state.devices.devices);
@@ -38,6 +37,9 @@ const LevelNumber = () => {
   const [supplyFilter, setSupplyFilter] = useState<string | null>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
+  const filterStatus = location.state?.filter || null;
+  console.log(filterStatus);
+  
   const handleServiceChange = (value: string) => {
     setServiceFilter(value === "null" ? null : value);
   };
@@ -65,9 +67,11 @@ const LevelNumber = () => {
       searchKeyword === "" ||
       number.customerName.toLowerCase().includes(searchKeyword.toLowerCase());
 
+    const isStatus = filterStatus === null || number.status === filterStatus;
+
     // Return true if the current 'number' object matches the combined filter criteria.
     return (
-      isServiceMatch && isStatusMatch && isSupplyMatch && isKeywordMatch 
+      isServiceMatch && isStatusMatch && isSupplyMatch && isKeywordMatch && isStatus
     );
   });
 
@@ -147,15 +151,14 @@ const LevelNumber = () => {
     },
   ];
   return (
-    <Layout>
-      <SiderMenu />
+   
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItem} />
-        <div className="mx-5">
+        <div className="mx-5 w-[1100px]">
           <div className="my-5">
             <b className="text-[1.5rem] text-[#FF7506]">Quản lý cấp số</b>
           </div>
-          <div className="flex justify-between my-3 w-[90%]">
+          <div className="flex justify-between my-3 w-full">
             <div className="flex flex-col">
               <b>Tên dịch vụ</b>
               <Select
@@ -218,7 +221,7 @@ const LevelNumber = () => {
             </div>
           </div>
           <div className="flex justify-between">
-            <div className="w-[90%]">
+            <div className="w-full">
               <Table
                 columns={columns}
                 dataSource={filteredData}
@@ -238,7 +241,6 @@ const LevelNumber = () => {
           </div>
         </div>
       </Content>
-    </Layout>
   );
 };
 

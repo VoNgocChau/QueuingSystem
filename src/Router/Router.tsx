@@ -1,9 +1,7 @@
 import React from "react";
-import {  Route, Routes } from "react-router-dom";
-import LoginPage from "../components/Login/LoginPage";
+import { Route, Routes } from "react-router-dom";
 import DashboardPage from "../components/Dashboard/DashboardPage";
-import ForgotPasswordPage from "../components/Login/ForgotPasswordPage";
-import ComfirmNewPassword from "../components/Login/assets/ComfirmNewPassword";
+
 import ProfilePage from "../components/Profile/ProfilePage";
 import DevicePage from "../pages/Devices/DevicePage";
 import AddDevicePage from "../pages/Devices/AddDevicePage";
@@ -48,10 +46,7 @@ const Router = () => {
         <Route path="/role-add/:id" Component={AddRole} />
         <Route path="/accounts" Component={Account} />
         <Route path="/account-add" Component={AddAccount} />
-        <Route path="/users" Component={UserLog}/>
-        <Route path="/login" Component={LoginPage} />
-        <Route path={"/forgotpassword"} Component={ForgotPasswordPage} />
-        <Route path={"/confirmPwd"} Component={ComfirmNewPassword} />
+        <Route path="/users" Component={UserLog} />
       </Routes>
     </div>
   );

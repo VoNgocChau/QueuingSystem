@@ -20,7 +20,7 @@ export interface ServiceType {
     serviceCode: string;
     serviceName: string;
     description: string;
-    activeStatus: string;
+    activeStatus: boolean;
 }
 
 export interface NumberType {
@@ -57,6 +57,7 @@ export interface AccountType {
     role: string;
     status: boolean;
     password: string;
+    imageUrl: string;
 }
 
 export interface LogEntry {

@@ -1,6 +1,5 @@
-import { Button, Card, Checkbox, Col, Input, Layout, Row, Space } from "antd";
+import { Button, Card, Checkbox, Col, Input,  Row, Space } from "antd";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import TextArea from "antd/es/input/TextArea";
@@ -74,11 +73,10 @@ const AddRole = () => {
     setFunction(value);
   };
   return (
-    <Layout>
-      <SiderMenu />
+    
       <Content className="content__global">
         <HeaderPage breadcrumbItems={items} />
-        <div className="mx-5">
+        <div className="mx-5 w-[80vw]">
           <div className="my-5">
             <b className="text-[1.5rem] text-[#FF7506]">Danh sách vai trò</b>
           </div>
@@ -208,7 +206,7 @@ const AddRole = () => {
               </Row>
             </Card>
           </div>
-          <div className="flex justify-center mt-[5%]">
+          <div className="flex justify-center">
             <Space>
               <Button className="btn__cancel w-[120px]">Hủy bỏ</Button>
               <Button className="btn__addd w-[120px]" onClick={handleAddRole}>
@@ -218,7 +216,7 @@ const AddRole = () => {
           </div>
         </div>
       </Content>
-    </Layout>
+    
   );
 };
 

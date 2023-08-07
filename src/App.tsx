@@ -1,15 +1,24 @@
+import Layout from "antd/es/layout/layout";
 import "./App.css";
-import AuthProvider from "./context/auth/AuthContext";
 
 import "./index.css";
 import Router from "./Router/Router";
+import SiderMenu from "./components/Menu/SiderMenu";
+import RouterAuth from "./Router/RouterAuth";
 
 function App() {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
   return (
     <>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
+      {isLoggedIn ? (
+        <Layout>
+          <SiderMenu />
+          <Router />
+        </Layout>
+      ) : (
+        <RouterAuth />
+      )}
     </>
   );
 }

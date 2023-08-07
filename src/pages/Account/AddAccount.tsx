@@ -4,14 +4,12 @@ import {
   Col,
   Form,
   Input,
-  Layout,
   Row,
   Select,
   Space,
   message,
 } from "antd";
 import React, { useEffect } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -65,8 +63,7 @@ const AddAccount = () => {
     form.submit();
   };
   return (
-    <Layout>
-      <SiderMenu />
+    
       <Content className="content__global">
         {contextHolder}
         <HeaderPage breadcrumbItems={items} />
@@ -157,7 +154,6 @@ const AddAccount = () => {
           </div>
         </div>
       </Content>
-    </Layout>
   );
 };
 

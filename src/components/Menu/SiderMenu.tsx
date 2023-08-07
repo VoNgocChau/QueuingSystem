@@ -58,6 +58,8 @@ const SiderMenu = () => {
   const navigate = useNavigate();
   const {setIsLoggedIn} = useAuth();
   const handleLogout = () => {
+    localStorage.removeItem('userAccount');
+    localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
     navigate('/login');
   }

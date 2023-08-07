@@ -3,13 +3,11 @@ import {
   Button,
   DatePicker,
   Input,
-  Layout,
   Select,
   Space,
   Table,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
@@ -22,7 +20,7 @@ import { ServiceType } from "../../interface";
 const Service = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.services.services);
-  const [activeStatus, setActiveStatus] = useState<string | null>(null);
+  const [activeStatus, setActiveStatus] = useState<boolean | null>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const navigate = useNavigate();
 
@@ -30,8 +28,8 @@ const Service = () => {
     setSearchKeyword(e.target.value);
   };
 
-  const handleActiveStatusChange = (value: string) => {
-    setActiveStatus(value);
+  const handleActiveStatusChange = (value: boolean) => {
+    setActiveStatus(value === null ? null : value);
   };
 
   const filteredData = data.filter((service) => {
@@ -108,70 +106,64 @@ const Service = () => {
     },
   ];
   return (
-    <Layout>
-      <SiderMenu />
-      <Content className="content__global">
-        <HeaderPage breadcrumbItems={breadcrumbItems} />
+    <Content className="content__global">
+      <HeaderPage breadcrumbItems={breadcrumbItems} />
 
-        <div className="flex flex-col px-4">
-          <div>
-            <b className="text-[1.5rem] text-[#ff7506]">Quản lý dịch vụ</b>
-          </div>
+      <div className="flex flex-col px-4 w-full">
+        <div>
+          <b className="text-[1.5rem] text-[#ff7506]">Quản lý dịch vụ</b>
+        </div>
 
-          <div className="flex  my-2">
-            <div className="flex flex-col">
-              <b>Trạng thái hoạt động</b>
-              <Select
-                defaultValue="jack"
-                style={{ width: 200 }}
-                value={activeStatus}
-                onChange={handleActiveStatusChange}
-                options={[
-                  { value: null, label: "Tất cả" },
-                  { value: true, label: "Hoạt động" },
-                  { value: false, label: "Ngưng hoạt động" },
-                ]}
-              />
-            </div>
-            <div className="flex flex-col mx-4">
-              <b>Chọn thời gian</b>
-              <Space>
-                <DatePicker placeholder="Từ ngày" />
-                <DatePicker placeholder="Đến ngày" />
-              </Space>
-            </div>
-            <div className="flex flex-col ml-[24.3%]">
-              <b>Từ khóa</b>
-              <Input
-                suffix={<SearchOutlined />}
-                placeholder="Nhập từ khóa"
-                value={searchKeyword}
-                onChange={handleKeywordChange}
-                style={{ marginLeft: 8, width: "267px" }}
-              />
-            </div>
+        <div className="flex  my-2">
+          <div className="flex flex-col">
+            <b>Trạng thái hoạt động</b>
+            <Select
+              defaultValue={null}
+              style={{ width: 200 }}
+              value={activeStatus}
+              onChange={handleActiveStatusChange}
+              options={[
+                { value: null, label: "Tất cả" },
+                { value: true, label: "Hoạt động" },
+                { value: false, label: "Ngưng hoạt động" },
+              ]}
+            />
           </div>
-          <div style={{ display: "flex" }}>
-            <div>
-              <Table
-                columns={columns}
-                dataSource={filteredData}
-                bordered
-                className="table__service"
-                size="middle"
-              />
-            </div>
-            <Button
-              className="btn__add"
-              onClick={() => navigate("/service-add")}
-            >
-              <PlusOutlined />
-              <p>Thêm dịch vụ</p>
-            </Button>
+          <div className="flex flex-col mx-4">
+            <b>Chọn thời gian</b>
+            <Space>
+              <DatePicker placeholder="Từ ngày" />
+              <DatePicker placeholder="Đến ngày" />
+            </Space>
+          </div>
+          <div className="flex flex-col ml-[24.3%]">
+            <b>Từ khóa</b>
+            <Input
+              suffix={<SearchOutlined />}
+              placeholder="Nhập từ khóa"
+              value={searchKeyword}
+              onChange={handleKeywordChange}
+              style={{ marginLeft: 8, width: "273px" }}
+            />
           </div>
         </div>
-      </Content>
-    </Layout>
+        <div style={{ display: "flex" }}>
+          <div>
+            <Table
+              columns={columns}
+              dataSource={filteredData}
+              bordered
+              className="table__service"
+              size="middle"
+            />
+          </div>
+          <Button className="btn__add" onClick={() => navigate("/service-add")}>
+            <PlusOutlined />
+            <p>Thêm dịch vụ</p>
+          </Button>
+        </div>
+      </div>
+    </Content>
   );
 };
 

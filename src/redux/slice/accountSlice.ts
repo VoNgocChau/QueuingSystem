@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AccountType, LogEntry } from "../../interface";
-import { firestore } from "../../firebase/config";
+import { auth, firestore } from "../../firebase/config";
 
 
 interface AccountState {
@@ -22,6 +22,8 @@ export const fetchDataAccount = createAsyncThunk('account/fetch', async () => {
 });
 
 export const addAccount = createAsyncThunk('account/add', async (account: AccountType) => {
+
+    
     const collection = await firestore.collection('accounts').add(account);
     account.id = collection.id;
     return account;

@@ -1,6 +1,5 @@
-import { Button, Card, Form, Layout, Modal, Select, Space } from "antd";
+import { Button, Card, Form, Modal, Select, Space } from "antd";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -38,16 +37,18 @@ const NewLevelNumber = () => {
 
   const handleSubmit = async (number: NumberType) => {
     const maxStt = await fetchMaxStt();
+    const statuses = ["Đang chờ", "Đã sử dụng", "Bỏ qua"];
+    const randomIdx = Math.floor(Math.random() * statuses.length)
     const newNumber = {
       ...number,
       customerName: userAccount?.fullName || "",
       fromDate: moment().format("HH:mm - DD/MM/YYYY"),
       toDate: moment().add(6, "hour").format("HH:mm - DD/MM/YYYY"),
-      status: "Đang chờ",
       supply: "Kiosk",
       stt: maxStt + 1,
       phoneNumber: userAccount?.phoneNumber,
       email: userAccount?.email,
+      status: statuses[randomIdx],
     };
     try {
       dispatch(addNumber(newNumber));
@@ -61,12 +62,15 @@ const NewLevelNumber = () => {
   const handleClick = () => {
     form.submit();
   };
+
+  const arr = [1, 2, 3, 4, 5];
+  const arrIdx = Math.floor(Math.random() * arr.length);
+
   return (
-    <Layout>
-      <SiderMenu />
+    <>
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItem} />
-        <div className="mx-5 mt-2">
+        <div className="mx-5 mt-2 w-[83vw]">
           <div className="my-4">
             <b className="text-[1.2rem] text-[#FF7506]">Quản lý cấp số</b>
           </div>
@@ -125,7 +129,7 @@ const NewLevelNumber = () => {
           </div>
           <div className="text-center mb-10">
             <span>
-              DV: {newNumberData?.serviceName} <b>(tại quầy số 1)</b>
+              DV: {newNumberData?.serviceName} <b>({`tại quầy số ${arr[arrIdx]}`})</b>
             </span>
           </div>
           <div className="flex flex-col footer-modal items-center text-white p-2 rounded-[5px]">
@@ -134,7 +138,7 @@ const NewLevelNumber = () => {
           </div>
         </div>
       </Modal>
-    </Layout>
+    </>
   );
 };
 

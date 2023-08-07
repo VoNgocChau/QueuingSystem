@@ -1,6 +1,5 @@
-import Layout, { Content } from "antd/es/layout/layout";
+import  { Content } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import HeaderPage from "../../components/Header/HeaderPage";
 import { Button, Card, Col, Row } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,7 +11,6 @@ const DetailLevelNumber = () => {
   const navigate = useNavigate();
   const [numberDetails, setNumberDetails] = useState<NumberType | null>(null);
   const data = useAppSelector((state) => state.numbers.numbers);
-  const dataAccount = useAppSelector((state) => state.accounts.userAccount);
   useEffect(() => {
     const details = data.find((number) => number.id === id);
     setNumberDetails(details || null);
@@ -23,11 +21,10 @@ const DetailLevelNumber = () => {
     { label: "Chi tiết" },
   ];
   return (
-    <Layout>
-      <SiderMenu />
+    
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItem} />
-        <div className="mx-5">
+        <div className="mx-5 w-[1180px]">
           <div>
             <b className="text-[1.5rem] text-[#FF7506]">Quản lý cấp số</b>
           </div>
@@ -86,7 +83,6 @@ const DetailLevelNumber = () => {
           </div>
         </div>
       </Content>
-    </Layout>
   );
 };
 

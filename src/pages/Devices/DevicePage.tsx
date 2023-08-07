@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Badge, Button, Form, Input, Layout, Select, Space, Table } from "antd";
-import SiderMenu from "../../components/Menu/SiderMenu";
+import {
+  Badge,
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Table,
+  Tooltip,
+} from "antd";
 import { Content } from "antd/es/layout/layout";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import "./device.css";
@@ -96,7 +104,7 @@ const DevicePage: React.FC = () => {
   };
 
   const renderServiceUse = (serviceUse: string[] | string) => {
-    let services: string[];
+    let services: string[] = [];
 
     if (Array.isArray(serviceUse)) {
       // If the serviceUse is an array, use it directly
@@ -114,7 +122,9 @@ const DevicePage: React.FC = () => {
 
     // Check if there are more services than the maximum allowed
     const shouldTruncate = services.length > maxServicesToShow;
-
+    const tooltipContent = Array.isArray(serviceUse)
+      ? serviceUse.join(", ")
+      : serviceUse;
     return (
       <span>
         {services.slice(0, maxServicesToShow).map((service, index) => (
@@ -126,15 +136,17 @@ const DevicePage: React.FC = () => {
         {shouldTruncate && (
           <>
             <br />
-            <span
-              className="underline underline-offset-1 cursor-pointer link-info text-[#4277FF]"
-              onClick={() => {
-                // Handle the "Xem thêm" click event here
-                console.log("Xem thêm clicked:", serviceUse);
-              }}
-            >
-              ...Xem thêm
-            </span>
+            <Tooltip trigger={"click"} title={tooltipContent}>
+              <span
+                className="underline underline-offset-1 cursor-pointer link-info text-[#4277FF]"
+                onClick={() => {
+                  // Handle the "Xem thêm" click event here
+                  console.log("Xem thêm clicked:", serviceUse);
+                }}
+              >
+                ...Xem thêm
+              </span>
+            </Tooltip>
           </>
         )}
       </span>
@@ -216,78 +228,75 @@ const DevicePage: React.FC = () => {
     },
   ];
   return (
-    <Layout>
-      <SiderMenu />
-      <Content style={{ minHeight: "100vh" }}>
-        <HeaderPage breadcrumbItems={breadcrumbItems} />
+    <Content style={{ minHeight: "100vh" }}>
+      <HeaderPage breadcrumbItems={breadcrumbItems} />
 
-        <div className="px-4">
-          <div>
-            <b className="text-[1.5rem] text-[#ff7506]">Danh sách thiết bị</b>
-          </div>
-          <div className=" flex mt-5">
-            <Space>
-              <Form layout="vertical">
-                <Form.Item label={<b>Trạng thái hoạt động</b>}>
-                  <Select
-                    defaultValue="jack"
-                    style={{ width: 200 }}
-                    value={activeStatusFilter}
-                    onChange={handleActiveStatusChange}
-                    options={[
-                      { value: null, label: "Tất cả" },
-                      { value: "true", label: "Hoạt động" },
-                      { value: "false", label: "Ngưng hoạt động" },
-                    ]}
-                  />
-                </Form.Item>
-              </Form>
-              <Form layout="vertical">
-                <Form.Item label={<b>Trạng thái kết nối</b>}>
-                  <Select
-                    defaultValue="jack"
-                    style={{ width: 200 }}
-                    value={connectionStatusFilter}
-                    onChange={handleConnectionStatusChange}
-                    options={[
-                      { value: null, label: "Tất cả" },
-                      { value: "true", label: "Kết nối" },
-                      { value: "false", label: "Mất kết nối" },
-                    ]}
-                  />
-                </Form.Item>
-              </Form>
-              <Form layout="vertical" className="ml-[400px]">
-                <Form.Item label={<b>Từ khóa</b>}>
-                  <Input
-                    suffix={<SearchOutlined />}
-                    placeholder="Search"
-                    value={searchKeyWord}
-                    onChange={handleKeyWordChange}
-                    style={{ marginLeft: 8, width: "267px" }}
-                  />
-                </Form.Item>
-              </Form>
-            </Space>
-          </div>
-          <div className="flex justify-between ">
-            <div className="w-[91.5%]">
-              <Table
-                columns={columns}
-                dataSource={filteredData}
-                bordered
-                size="small"
-                pagination={{pageSize: 5}}
-              />
-            </div>
-            <Button className="btn__add">
-              <PlusOutlined />
-              <p onClick={handleAddDevice}>Thêm thiết bị</p>
-            </Button>
-          </div>
+      <div className="px-4">
+        <div>
+          <b className="text-[1.5rem] text-[#ff7506]">Danh sách thiết bị</b>
         </div>
-      </Content>
-    </Layout>
+        <div className=" flex mt-5">
+          <Space>
+            <Form layout="vertical">
+              <Form.Item label={<b>Trạng thái hoạt động</b>}>
+                <Select
+                  defaultValue="jack"
+                  style={{ width: 200 }}
+                  value={activeStatusFilter}
+                  onChange={handleActiveStatusChange}
+                  options={[
+                    { value: null, label: "Tất cả" },
+                    { value: "true", label: "Hoạt động" },
+                    { value: "false", label: "Ngưng hoạt động" },
+                  ]}
+                />
+              </Form.Item>
+            </Form>
+            <Form layout="vertical">
+              <Form.Item label={<b>Trạng thái kết nối</b>}>
+                <Select
+                  defaultValue="jack"
+                  style={{ width: 200 }}
+                  value={connectionStatusFilter}
+                  onChange={handleConnectionStatusChange}
+                  options={[
+                    { value: null, label: "Tất cả" },
+                    { value: "true", label: "Kết nối" },
+                    { value: "false", label: "Mất kết nối" },
+                  ]}
+                />
+              </Form.Item>
+            </Form>
+            <Form layout="vertical" className="ml-[400px]">
+              <Form.Item label={<b>Từ khóa</b>}>
+                <Input
+                  suffix={<SearchOutlined />}
+                  placeholder="Search"
+                  value={searchKeyWord}
+                  onChange={handleKeyWordChange}
+                  style={{ marginLeft: 8, width: "267px" }}
+                />
+              </Form.Item>
+            </Form>
+          </Space>
+        </div>
+        <div className="flex justify-between ">
+          <div className="w-[93%]">
+            <Table
+              columns={columns}
+              dataSource={filteredData}
+              bordered
+              size="small"
+              pagination={{ pageSize: 5 }}
+            />
+          </div>
+          <Button className="btn__add">
+            <PlusOutlined />
+            <p onClick={handleAddDevice}>Thêm thiết bị</p>
+          </Button>
+        </div>
+      </div>
+    </Content>
   );
 };
 

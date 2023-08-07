@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Avatar, Popover, Divider } from "antd";
-import { BellOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -8,7 +7,8 @@ import bell from "../../assets/bell.svg";
 
 const AvatarPage = () => {
   const navigate = useNavigate();
-  const userAccount = useAppSelector((state) => state.accounts.userAccount);
+  const userAccountString = localStorage.getItem('userAccount');
+  const userAccount = userAccountString ? JSON.parse(userAccountString): {}
   const numberData = useAppSelector((state) => state.numbers.numbers);
   
 
@@ -44,7 +44,7 @@ const AvatarPage = () => {
             <img src={bell} alt="icon bell" className="mr-5 cursor-pointer" />
           </Popover>
           <Avatar
-            src={""}
+            src={userAccount?.imageUrl}
             size={35}
             onClick={() => navigate("/profile")}
             className="cursor-pointer"

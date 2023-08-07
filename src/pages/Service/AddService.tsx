@@ -5,21 +5,21 @@ import {
   Col,
   Form,
   Input,
-  Layout,
   Row,
   Space,
   message,
 } from "antd";
 import React from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
-import { ServiceType } from "../../interface";
+import { LogEntry, ServiceType } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addService, updateService } from "../../redux/slice/serviceSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import moment from "moment";
+import { addLog, saveLogToFirestore } from "../../redux/slice/accountSlice";
 
 const AddService = () => {
   const [form] = useForm();
@@ -31,6 +31,7 @@ const AddService = () => {
   const selectedService = useAppSelector((state) =>
     state.services.services.find((service) => service.id === id)
   );
+  const userAccount = useAppSelector((state) => state.accounts.userAccount);
   const serviceId: string | undefined = selectedService?.id!;
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
@@ -43,8 +44,10 @@ const AddService = () => {
   };
 
   const handleSubmit = async(service: ServiceType) => {
+    const status = Math.random() < 0.5
     const newService = {
       ...service,
+      activeStatus: status
     };
     try {
       if (isUpdate) {
@@ -53,6 +56,17 @@ const AddService = () => {
       } else {
        await dispatch(addService(newService));
       }
+      const activity = isUpdate ? `Cập nhật dịch vụ ${service.serviceName}` : `Thêm mới dịch vụ ${service.serviceName}`;
+      const timestamp = moment().format("DD/MM/YYYY HH:mm:ss");
+      const userName = userAccount?.userName ?? "Unknow";
+      const logEntry: LogEntry = {
+        timestamp,
+        activity,
+        userName,
+        ipUsage: '123.123.123'
+      }
+      dispatch(addLog(logEntry));
+      dispatch(saveLogToFirestore(logEntry));
       navigate("/services");
     } catch (err) {
       console.log(err);
@@ -69,13 +83,12 @@ const AddService = () => {
     { label: isUpdate ? "Cập nhật dịch vụ" : "Thêm mới dịch vụ" },
   ];
   return (
-    <Layout>
-      <SiderMenu />
+    
       <Content className="content__global">
         {contextHolder}
         <HeaderPage breadcrumbItems={breadcrumbItem} />
-        <div className="mx-5">
-          <div className="my-2">
+        <div className="mx-5 w-[1150px]">
+          <div className="mb-2">
             <span className="text-[1.5rem] text-[#ff7506]">
               Quản lý dịch vụ
             </span>
@@ -157,7 +170,7 @@ const AddService = () => {
             </div>
           </Card>
         </div>
-        <div className="flex justify-center mt-[30px]">
+        <div className="flex justify-center">
           <Space>
             <Button className="btn__cancel" onClick={() => navigate(-1)}>
               Hủy bỏ
@@ -168,7 +181,6 @@ const AddService = () => {
           </Space>
         </div>
       </Content>
-    </Layout>
   );
 };
 

@@ -4,13 +4,11 @@ import {
   Card,
   DatePicker,
   Input,
-  Layout,
   Select,
   Space,
   Table,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import SiderMenu from "../../components/Menu/SiderMenu";
 import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import "./service.css";
@@ -99,8 +97,7 @@ const DetailService = () => {
       return isStatusMatch && isKeywordMatch;
   })
   return (
-    <Layout>
-      <SiderMenu />
+    
       <Content className="content__global">
         <HeaderPage breadcrumbItems={breadcrumbItem} />
         <div className="mx-5">
@@ -204,7 +201,6 @@ const DetailService = () => {
           </div>
         </div>
       </Content>
-    </Layout>
   );
 };
 
