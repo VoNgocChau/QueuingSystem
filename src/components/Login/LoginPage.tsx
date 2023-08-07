@@ -21,13 +21,13 @@ const LoginPage: React.FC = () => {
 
   const dataAccount = useAppSelector((state) => state.accounts.accounts);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    const storedAccount = localStorage.getItem("userAccount");
-    if (storedAccount) {
-      dispatch(setUserAccount(JSON.parse(storedAccount)));
-      setIsLoggedIn(true);
-    }
-  }, [dispatch, setIsLoggedIn]);
+  // useEffect(() => {
+  //   const storedAccount = localStorage.getItem("userAccount");
+  //   if (storedAccount) {
+  //     dispatch(setUserAccount(JSON.parse(storedAccount)));
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [dispatch, setIsLoggedIn]);
 
   useEffect(() => {
     dispatch(fetchDataAccount());

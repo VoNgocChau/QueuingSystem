@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/slice/serviceSlice";
 import { Option } from "antd/es/mentions";
 import { useNavigate } from "react-router-dom";
-import { NumberType } from "../../interface";
+import { AccountType, NumberType } from "../../interface";
 import moment from "moment";
 import { addNumber } from "../../redux/slice/numberSlice";
 import { useForm } from "antd/es/form/Form";
@@ -24,7 +24,10 @@ const NewLevelNumber = () => {
   const [newNumberData, setNewNumberData] = useState<NumberType | null>(null);
   const dispatch = useAppDispatch();
   const serviceData = useAppSelector((state) => state.services.services);
-  const userAccount = useAppSelector((state) => state.accounts.userAccount);
+  const userAccountString = localStorage.getItem("userAccount");
+  const userAccount: AccountType = userAccountString
+    ? JSON.parse(userAccountString)
+    : {};
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
@@ -38,7 +41,7 @@ const NewLevelNumber = () => {
   const handleSubmit = async (number: NumberType) => {
     const maxStt = await fetchMaxStt();
     const statuses = ["Đang chờ", "Đã sử dụng", "Bỏ qua"];
-    const randomIdx = Math.floor(Math.random() * statuses.length)
+    const randomIdx = Math.floor(Math.random() * statuses.length);
     const newNumber = {
       ...number,
       customerName: userAccount?.fullName || "",
@@ -129,7 +132,8 @@ const NewLevelNumber = () => {
           </div>
           <div className="text-center mb-10">
             <span>
-              DV: {newNumberData?.serviceName} <b>({`tại quầy số ${arr[arrIdx]}`})</b>
+              DV: {newNumberData?.serviceName}{" "}
+              <b>({`tại quầy số ${arr[arrIdx]}`})</b>
             </span>
           </div>
           <div className="flex flex-col footer-modal items-center text-white p-2 rounded-[5px]">

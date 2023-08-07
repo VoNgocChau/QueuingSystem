@@ -14,7 +14,7 @@ import { Content } from "antd/es/layout/layout";
 import HeaderPage from "../../components/Header/HeaderPage";
 import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
-import { LogEntry, ServiceType } from "../../interface";
+import { AccountType, LogEntry, ServiceType } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addService, updateService } from "../../redux/slice/serviceSlice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,7 +31,8 @@ const AddService = () => {
   const selectedService = useAppSelector((state) =>
     state.services.services.find((service) => service.id === id)
   );
-  const userAccount = useAppSelector((state) => state.accounts.userAccount);
+  const userAccountString = localStorage.getItem('userAccount');
+  const userAccount:AccountType = userAccountString ? JSON.parse(userAccountString) : {};
   const serviceId: string | undefined = selectedService?.id!;
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {

@@ -15,7 +15,7 @@ import {
 import "./add.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { Device, LogEntry } from "../../interface";
+import { AccountType, Device, LogEntry } from "../../interface";
 import { addDevice, updateDevice } from "../../redux/slice/deviceSlice";
 import { fetchData } from "../../redux/slice/serviceSlice";
 import { Option } from "antd/es/mentions";
@@ -30,7 +30,8 @@ const AddDevicePage: React.FC = () => {
     state.devices.devices.find((device) => device.id === id)
   );
   const serviceData = useAppSelector((state) => state.services.services);
-  const userAccount = useAppSelector((state) => state.accounts.userAccount);
+  const userAccountString = localStorage.getItem('userAccount');
+  const userAccount: AccountType = userAccountString ? JSON.parse(userAccountString) : {};
   const breadcrumbItems = [
     { label: "Thiết bị", link: "/devices" },
     { label: "Danh sách thiết bị", link: "/devices" },
