@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
       setIsLoggedIn(true);
     }
   }, [dispatch, setIsLoggedIn]);
-  
+
   useEffect(() => {
     dispatch(fetchDataAccount());
   }, [dispatch]);
@@ -38,11 +38,12 @@ const LoginPage: React.FC = () => {
       (account) =>
         account.userName === email && account.password === passwordLogin
     );
+
     if (foundAccount) {
       dispatch(setUserAccount(foundAccount));
       setIsLoggedIn(true);
       localStorage.setItem("userAccount", JSON.stringify(foundAccount));
-      localStorage.setItem('isLoggedIn', JSON.stringify(true));
+      localStorage.setItem("isLoggedIn", JSON.stringify(true));
 
       navigate("/");
     } else {

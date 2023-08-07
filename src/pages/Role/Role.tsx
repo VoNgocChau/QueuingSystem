@@ -86,6 +86,7 @@ const Role = () => {
                 dataSource={filterData}
                 bordered
                 size="small"
+                pagination={{pageSize: 5}}
               />
             </div>
             <Button className="btn__add" onClick={() => navigate('/role-add')}>Thêm vai trò</Button>

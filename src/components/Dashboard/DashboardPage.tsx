@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Layout, Typography, Card, Progress, Row, Col, Badge } from "antd";
 import "./dashboard.css";
@@ -6,7 +6,8 @@ import DashboardContent from "./pages/DashboardContent";
 import AvatarPage from "../Avatar/Avatar";
 import { DesktopOutlined } from "@ant-design/icons";
 import { useAppSelector } from "../../redux/hooks";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -34,6 +35,12 @@ const DashboardPage: React.FC = () => {
   const numberUsage = numberData.filter((item) => item.status === "Đã sử dụng");
   const numberWait = numberData.filter((item) => item.status === "Đang chờ");
   const numberPass = numberData.filter((item) => item.status === "Bỏ qua");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <>
@@ -63,6 +70,7 @@ const DashboardPage: React.FC = () => {
                     size={50}
                     strokeColor={"#FF7506"}
                   />
+
                   <div className="flex flex-col justify-center mx-2">
                     <b className="text-[20px]">{device}</b>
                     <span className="text-[orange]">

@@ -84,7 +84,7 @@ const Report = () => {
         </div>
         <div className="flex">
           <div className="w-[90%]">
-            <Table columns={columns} dataSource={data} bordered size="small" />
+            <Table columns={columns} dataSource={data} bordered size="small" pagination={{pageSize: 5}} />
           </div>
           <div>
             <Button

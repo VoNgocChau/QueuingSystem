@@ -155,6 +155,7 @@ const Service = () => {
               bordered
               className="table__service"
               size="middle"
+              pagination={{pageSize: 5}}
             />
           </div>
           <Button className="btn__add" onClick={() => navigate("/service-add")}>

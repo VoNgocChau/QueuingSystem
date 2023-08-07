@@ -19,6 +19,7 @@ import { AccountType } from "../../interface";
 import { addAccount } from "../../redux/slice/accountSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
+import { auth } from "../../firebase/config";
 
 const AddAccount = () => {
   const items = [
@@ -50,6 +51,7 @@ const AddAccount = () => {
 
     try {
       await dispatch(addAccount(newAccount));
+      await auth.createUserWithEmailAndPassword(newAccount.email, newAccount.password);
 
       navigate("/accounts");
       console.log(newAccount);

@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Row, Col, Form, Input, Space, Button } from "antd";
 import logoForgot from "./forgot-pwd";
 import logoAlta from "./logo";
+import { auth } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 const ComfirmNewPassword: React.FC = () => {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const handleConfirmNewPassword = async () => {
+    const oobCode = new URLSearchParams(window.location.search).get(
+      "oobCode"
+    ) as string;
+    console.log(oobCode);
+
+    try {
+      await auth.confirmPasswordReset(oobCode, password);
+      navigate("/login"); // Đặt lại thành công, chuyển hướng đến trang đăng nhập
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Row align={"middle"} style={{ minHeight: "100vh" }}>
       <Col span={10} className="centered-col">
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={handleConfirmNewPassword}>
           <Form.Item style={{ display: "flex", justifyContent: "center" }}>
             <div dangerouslySetInnerHTML={{ __html: logoAlta }}></div>
           </Form.Item>
@@ -17,11 +35,19 @@ const ComfirmNewPassword: React.FC = () => {
           </Form.Item>
 
           <Form.Item label="Mật khẩu" name="password">
-            <Input.Password style={{ width: "400px", height: "44px" }} />
+            <Input.Password
+              style={{ width: "400px", height: "44px" }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item label="Nhập lại mật khẩu" name="password">
-            <Input.Password style={{ width: "400px", height: "44px" }} />
+            <Input.Password
+              style={{ width: "400px", height: "44px" }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item style={{ textAlign: "center" }}>

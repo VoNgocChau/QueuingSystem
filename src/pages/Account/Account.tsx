@@ -122,6 +122,7 @@ const Account = () => {
               dataSource={filterData}
               bordered
               size="small"
+              pagination={{pageSize: 5}}
             />
           </div>
           <div>

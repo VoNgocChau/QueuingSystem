@@ -56,13 +56,13 @@ const items: MenuItem[] = [
 
 const SiderMenu = () => {
   const navigate = useNavigate();
-  const {setIsLoggedIn} = useAuth();
-  const handleLogout = () => {
-    localStorage.removeItem('userAccount');
-    localStorage.removeItem('isLoggedIn');
+  const { setIsLoggedIn } = useAuth();
+  const handleLogout = async () => {
+    localStorage.removeItem("userAccount");
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
-    navigate('/login');
-  }
+    await navigate("/login");
+  };
   return (
     <Sider theme="light" className="sidebar">
       <div style={{ width: 200 }}>
